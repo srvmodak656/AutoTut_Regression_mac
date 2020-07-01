@@ -10,7 +10,7 @@ India
 import os
 import threading
 import time
-
+from writeTut import runProgramRegression
 
 stop_threads = False
 
@@ -52,17 +52,18 @@ def runRegression(filePathList):
 
     def runThread(stop,filePath):
         """ This is a thread run method which will be used to run the program"""
-        os.system("python "+"/Users/souravmodak/Documents/AutoTut_SourceCode/python_src/writeTut.py "+filePath)
+        runProgramRegression(filePath)
         if stop():
             return
-
+    def timer():
+        """ Thread to put a timer"""
     for filePath in filePathList:
         stop_threads = False
         t1 = threading.Thread(target=runThread, args=(lambda: stop_threads, filePath))
         time_start = time.time()
         t1.start()
         while t1.is_alive():
-            if (time.time() - time_start) > 5:
+            if (time.time() - time_start) > 2:
                 stop_threads = True
                 t1.join()
 
