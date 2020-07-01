@@ -117,7 +117,7 @@ public class Regression {
 		t1.start();
 		try {
 			Thread.sleep(1000);
-			t1.stop();	// no other possibilty unless we use this deprecated function
+			t1.stop();	// no other possibility unless we use this deprecated function
 		}
 		catch(InterruptedException e)
 		{
