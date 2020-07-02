@@ -144,7 +144,8 @@ public class Regression {
 	{
 		ArrayList<String> fileList = getFilesPathList(workspacePath, allowedProduct);
 		int count = 1;
-		for(String filePath : fileList){
+		for(String filePath : fileList)
+		{
 			System.out.println("Running AutoTUT for "+filePath);
 			long timeRemaining = (fileList.size()-count)*(timeoutMilliseconds/1000);
 			int mins = (int) (timeRemaining/60);
@@ -176,11 +177,30 @@ public class Regression {
 			};
 			process.start();
 			while(true)
-				if(!timer.isAlive())
-					{
-						ThreadStop.StopThread(process);
-						break;
-					}
+			{
+				if(!timer.isAlive())	// if timer is over
+				{
+					ThreadStop.StopThread(process);
+					break;
+				}
+				if(!process.isAlive())
+				{
+					ThreadStop.StopThread(timer);
+					
+					break;
+					
+				}
+			}
+			if (count%10 == 0)
+			{
+				try {
+					Process p = Runtime.getRuntime().exec("pkill -f python");
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
 		}
 		
 	}
