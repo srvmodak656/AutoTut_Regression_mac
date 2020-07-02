@@ -53,7 +53,7 @@ public class Regression {
 		}
 		
 	}
-	public static String runAutoTUT(String targetPath, String workSpaceDetails)
+	public static Process runAutoTUT(String targetPath, String workSpaceDetails, String reportPath)
 	{
 		//ArrayList<String> workSpaceDetails= new ArrayList<String>();	////CHANGE FOR ACCESS
 		String s = null;
@@ -76,17 +76,34 @@ public class Regression {
 	                }
 	                else if (!s.contains("Done") && !s.startsWith("TUT file written in "))
 	                	errorString += "\n [ERROR]"+s;
+	                File reportFile = new File(reportPath);
+	        		
+	        		try {
+	        			if (!reportFile.exists())
+	        				reportFile.createNewFile();
+	        			//reportFile.createNewFile();
+	        			ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(reportFile));
+	        			objOut.writeChars(errorString+"\n");
+	        			objOut.close();
+	        		}
+	        		catch(Exception e)
+	        		{
+	        			e.printStackTrace();
+	        		}
 	            }
 	            File file = new File(tutWrittenPath);
 	            file.delete(); // Delete the tut file since not needed.
 	          //  System.out.println("File at "+tutWrittenPath+" is deleted successfully");
+	            p.destroy();
+	            return p;
 		}
 		catch(Exception e)
 		{
 			//e.getSuppressed();
 			e.printStackTrace();
+			return null;
 		}
-		return errorString;
+		
 	}
 	
 	public static ArrayList<String> getFilesPathList(String workspacePath, String[] allowedProduct)
@@ -122,44 +139,49 @@ public class Regression {
 		}
 		return outputList;
 	}
+	
 	public static void runRegression(String targetPath, String workspacePath, String[] allowedProduct, int timeoutMilliseconds, String reportPath)
 	{
 		ArrayList<String> fileList = getFilesPathList(workspacePath, allowedProduct);
 		int count = 1;
 		for(String filePath : fileList){
 			System.out.println("Running AutoTUT for "+filePath);
+			long timeRemaining = (fileList.size()-count)*(timeoutMilliseconds/1000);
+			int mins = (int) (timeRemaining/60);
+			int secs = (int) (timeRemaining%60);
+			int hrs = (int) mins/60;
+			mins = (int) mins%60;
 			System.out.println("Remaining "+(fileList.size()-count));
+			System.out.println("Remaining time approx : "+hrs+" hrs "+mins+" mins "+secs+" seconds");
 			count++;
-			Thread t1 = new Thread() {
+			Thread timer = new Thread()  {
+				
 				public void run() {
-					String errorString = runAutoTUT(targetPath, filePath);
-					File reportFile = new File(reportPath);
-					
-						try {
-							if (!reportFile.exists())
-								reportFile.createNewFile();
-							//reportFile.createNewFile();
-							ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(reportFile));
-							objOut.writeChars(errorString+"\n");
-							objOut.close();
-						}
-						catch(Exception e)
-						{
-							e.printStackTrace();
-						}
+					try {
+						Thread.sleep(timeoutMilliseconds); // timeout
 						
-					
+					}
+					catch(InterruptedException e)
+					{
+						e.printStackTrace();
+					}
 				}
 			};
-			t1.start();
-			try {
-				Thread.sleep(timeoutMilliseconds); // timeout
-				ThreadStop.StopThread(t1);
-			}
-			catch(InterruptedException e)
-			{
-				e.printStackTrace();
-			}
+			timer.start();
+			Thread process = new Thread() {
+				public void run() {
+					Process p = runAutoTUT(targetPath, workspacePath, reportPath);
+					p.destroy();
+					p.destroyForcibly();
+				}
+			};
+			process.start();
+			while(true)
+				if(!timer.isAlive())
+					{
+						ThreadStop.StopThread(process);
+						break;
+					}
 		}
 		
 	}
