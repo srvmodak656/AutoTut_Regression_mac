@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.lang.*;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 /*
  * This is the java module to run regression and is a multithreaded module.
  * It is advised to be cautious about the code push since if now monitored 
@@ -51,13 +53,11 @@ public class Regression {
 		}
 		
 	}
-	public static void runAutoTUT(String targetPath, String workSpaceDetails)
+	public static String runAutoTUT(String targetPath, String workSpaceDetails)
 	{
 		//ArrayList<String> workSpaceDetails= new ArrayList<String>();	////CHANGE FOR ACCESS
-		System.out.println(workSpaceDetails);
-		System.out.println(fileWrite(handleSpace(workSpaceDetails), FilePath.tempFilePath));
-		System.out.println("To Python - "+workSpaceDetails);
 		String s = null;
+		String errorString = null;
 		String tutWrittenPath = "";
 		try {
 			Process p = Runtime.getRuntime().exec("python3 "+targetPath+File.separator+"writeTut.py "+workSpaceDetails);
@@ -67,63 +67,122 @@ public class Regression {
 	            BufferedReader stdError = new BufferedReader(new 
 	                 InputStreamReader(p.getErrorStream()));
 
-	            // read the output from the command
-	            System.out.println("Here is the standard output of the command:\n");
-	            while ((s = stdInput.readLine()) != null) {
-	                System.out.println(s);
-	            }
-	            
-	            // read any errors from the attempted command
-	            System.out.println("Here is the standard error of the command (if any):\n");
 	            while ((s = stdError.readLine()) != null) {
-	                System.out.println(s);
+	                //System.out.println(s);
+	                
 	                if (s.startsWith("TUT file written in "))
 	                {
 	                	tutWrittenPath = s.split("TUT file written in ")[1];
 	                }
+	                else if (!s.contains("Done") && !s.startsWith("TUT file written in "))
+	                	errorString += "\n [ERROR]"+s;
 	            }
 	            File file = new File(tutWrittenPath);
 	            file.delete(); // Delete the tut file since not needed.
-	            System.out.println("File at "+tutWrittenPath+" is deleted successfully");
+	          //  System.out.println("File at "+tutWrittenPath+" is deleted successfully");
 		}
 		catch(Exception e)
 		{
 			//e.getSuppressed();
 			e.printStackTrace();
 		}
+		return errorString;
 	}
 	
-	public static class runnableThread implements Runnable {
+	public static ArrayList<String> getFilesPathList(String workspacePath, String[] allowedProduct)
+	{
+		ArrayList <String> outputList = new ArrayList<String>();
+		for(String product : allowedProduct) 
+		{
+			String targetPath = workspacePath + File.separator + product;
+			String[] listOfFile = new File(targetPath).list();
+			for(String folderName : listOfFile)
+			{
+				String targetFolderPath = targetPath + File.separator + folderName;
+				if (folderName.startsWith(product))
+				{
+					String fullPath = targetFolderPath + File.separator + "Source" + File.separator + "Private";
+					try
+					{
+						String [] filesInside = new File(fullPath).list();
+						for(String file : filesInside)
+						{
+							String fileFullPath = fullPath + File.separator + file;
+							outputList.add(fileFullPath);
+						}
+						
+					}
+					catch(Exception e)
+					{
+						e.getSuppressed();
+						System.out.println("No .b files found in "+folderName);
+					}
+				}
+			}
+		}
+		return outputList;
+	}
+	public static void runRegression(String targetPath, String workspacePath, String[] allowedProduct, int timeoutMilliseconds, String reportPath)
+	{
+		ArrayList<String> fileList = getFilesPathList(workspacePath, allowedProduct);
+		int count = 1;
+		for(String filePath : fileList){
+			System.out.println("Running AutoTUT for "+filePath);
+			System.out.println("Remaining "+(fileList.size()-count));
+			count++;
+			Thread t1 = new Thread() {
+				public void run() {
+					String errorString = runAutoTUT(targetPath, filePath);
+					File reportFile = new File(reportPath);
+					
+						try {
+							if (!reportFile.exists())
+								reportFile.createNewFile();
+							//reportFile.createNewFile();
+							ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(reportFile));
+							objOut.writeChars(errorString+"\n");
+							objOut.close();
+						}
+						catch(Exception e)
+						{
+							e.printStackTrace();
+						}
+						
+					
+				}
+			};
+			t1.start();
+			try {
+				Thread.sleep(timeoutMilliseconds); // timeout
+				ThreadStop.StopThread(t1);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+		}
 		
-		   String targetPath, workspacePath;
-		   public runnableThread(String targetPath, String workspacePath) {
-		       this.targetPath = targetPath;
-		       this.workspacePath = workspacePath;
-		   }
-
-		   public void run() {
-			   runAutoTUT(targetPath, workspacePath);
-		   }
 	}
-	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String targetPath = "/Users/souravmodak/Desktop/Final/python_src";
-		String workspacePath = "/Users/souravmodak/Desktop/Dev_Workspace/AA/AA_PricingGrid/Source/Private/AA.PRICING.GRID.UPDATE.b";
-		
-		Runnable r1 = new runnableThread(targetPath, workspacePath);
-		exit = false;
-		Thread t1 = new Thread(r1);
-		t1.start();
-		try {
-			Thread.sleep(1000);
-			t1.stop();	// no other possibility unless we use this deprecated function
-		}
-		catch(InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-		
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Target path  : ");
+		String targetPath = scan.next();
+		System.out.println("Workspace path  : ");
+		String workspacePath = scan.next();
+		System.out.println("Product (like AA, FL, EB). Enter it separated by commas : ");
+		String product = scan.next();
+		String [] allowedProduct = product.split(",");
+		for(int i = 0; i<allowedProduct.length; i++)
+			allowedProduct[i] = allowedProduct[i].trim();
+		System.out.println("Timeout in milliseconds : ");
+		int timeoutMilliseconds = scan.nextInt();
+		System.out.println("Report generation path : ");
+		String reportPath = scan.next();
+		System.out.println("Starting regression");
+		long start_time = System.nanoTime();
+		runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPath);
+		System.out.println("Regression stopped, total time taken = "+(System.nanoTime() - start_time)+ " seconds");
 	}
 
 }

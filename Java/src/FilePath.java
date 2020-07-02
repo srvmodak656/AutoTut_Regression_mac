@@ -328,7 +328,7 @@ public class FilePath {
 			window.frame.setVisible(true);
 			while(!window.done)
 			{
-				TimeUnit.MICROSECONDS.sleep(1);
+				Thread.sleep((long) 0.001);;
 			}
 			return window.workspaceDetails;
 		} catch (Exception e) {
