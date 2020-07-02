@@ -1,7 +1,13 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.*;
 import java.util.ArrayList;
@@ -75,21 +81,24 @@ public class Regression {
 	                	tutWrittenPath = s.split("TUT file written in ")[1];
 	                }
 	                else if (!s.contains("Done") && !s.startsWith("TUT file written in "))
-	                	errorString += "\n [ERROR]"+" {"+targetPath+"} "+s;
+	                	errorString += "\n [ERROR]"+" {"+workSpaceDetails+"} "+s;
 	                File reportFile = new File(reportPath);
 	        		
-	        		try {
-	        			if (!reportFile.exists())
-	        				reportFile.createNewFile();
-	        			//reportFile.createNewFile();
-	        			ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(reportFile));
-	        			objOut.writeChars(errorString+"\n");
-	        			objOut.close();
-	        		}
-	        		catch(Exception e)
-	        		{
-	        			e.printStackTrace();
-	        		}
+	                try { 
+	                	if(!reportFile.exists())
+	                		reportFile.createNewFile();
+	                    BufferedWriter out = new BufferedWriter(new FileWriter(reportFile, true)); 
+	                    if(errorString!=null || !errorString.isEmpty())
+	                    	out.write(errorString+"\n"); 
+	                    out.close(); 
+	                } 
+	                catch (IOException e) { 
+	                    System.out.println("exception occoured" + e); 
+	                } 
+	                catch(NullPointerException e)
+	                {
+	                	e.getSuppressed();
+	                }
 	            }
 	            File file = new File(tutWrittenPath);
 	            file.delete(); // Delete the tut file since not needed.
@@ -218,12 +227,25 @@ public class Regression {
 			allowedProduct[i] = allowedProduct[i].trim();
 		System.out.println("Timeout in milliseconds : ");
 		int timeoutMilliseconds = scan.nextInt();
-		System.out.println("Report generation path : ");
-		String reportPath = scan.next();
-		System.out.println("Starting regression");
-		long start_time = System.nanoTime();
-		runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPath);
-		System.out.println("Regression stopped, total time taken = "+(System.nanoTime() - start_time)+ " seconds");
+		while(true)
+		{
+			System.out.println("Report generation path : ");
+			String reportPath = scan.next();
+			if (!new File(reportPath).isDirectory())
+			{
+				System.out.println("Starting regression");
+				long start_time = System.nanoTime();
+				runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPath);
+				System.out.println("Regression stopped, total time taken = "+(System.nanoTime() - start_time)+ " seconds");
+				break;
+			}
+			else
+			{
+				System.out.println("Report generation path is a directory try again");
+			}
+		}
+		
+		
 	}
 
 }
