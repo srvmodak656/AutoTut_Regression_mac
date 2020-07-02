@@ -141,15 +141,34 @@ public class RegressionGUI {
         
         JButton btnTerminate = new JButton("TERMINATE");
         btnTerminate.setForeground(Color.RED);
-        btnTerminate.setBounds(170, 412, 117, 29);
+        btnTerminate.setBounds(176, 423, 117, 29);
         regressionSetting.add(btnTerminate);
         
         JButton btnExit = new JButton("EXIT");
         btnExit.setForeground(Color.RED);
-        btnExit.setBounds(299, 412, 117, 29);
+        btnExit.setBounds(305, 423, 117, 29);
         regressionSetting.add(btnExit);
 		
 		Panel regressionLog = new Panel();
 		tabbedPane_1.addTab("Regression Log", null, regressionLog, null);
+		regressionLog.setLayout(null);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(6, 35, 554, 346);
+		regressionLog.add(scrollPane_1);
+		
+		JButton terminate = new JButton("TERMINATE");
+		terminate.setForeground(Color.RED);
+		terminate.setBounds(176, 423, 117, 29);
+		regressionLog.add(terminate);
+		
+		JButton btnExit_1 = new JButton("EXIT");
+		btnExit_1.setForeground(Color.RED);
+		btnExit_1.setBounds(305, 423, 117, 29);
+		regressionLog.add(btnExit_1);
+		
+		JLabel lblNewLabel = new JLabel("Detailed Log");
+		lblNewLabel.setBounds(18, 7, 199, 16);
+		regressionLog.add(lblNewLabel);
 	}
 }
