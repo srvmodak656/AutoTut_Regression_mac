@@ -75,7 +75,7 @@ public class Regression {
 	                	tutWrittenPath = s.split("TUT file written in ")[1];
 	                }
 	                else if (!s.contains("Done") && !s.startsWith("TUT file written in "))
-	                	errorString += "\n [ERROR]"+s;
+	                	errorString += "\n [ERROR]"+" {"+targetPath+"} "+s;
 	                File reportFile = new File(reportPath);
 	        		
 	        		try {
@@ -159,7 +159,6 @@ public class Regression {
 				public void run() {
 					try {
 						Thread.sleep(timeoutMilliseconds); // timeout
-						
 					}
 					catch(InterruptedException e)
 					{
@@ -170,7 +169,7 @@ public class Regression {
 			timer.start();
 			Thread process = new Thread() {
 				public void run() {
-					Process p = runAutoTUT(targetPath, workspacePath, reportPath);
+					Process p = runAutoTUT(targetPath, filePath, reportPath);
 					p.destroy();
 					p.destroyForcibly();
 				}
