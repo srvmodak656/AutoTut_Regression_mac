@@ -43,7 +43,7 @@ public class Message {
 	private void initialize(String Message, int exitStatus) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 378, 235);
-		if(exitStatus == 0)
+		if(exitStatus == 0)	// 0 to dispose, 1 to close
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		else
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -28,9 +28,9 @@ import java.util.Scanner;
  * 
  */
 public class Regression {
-	public static long start_time; 
-	public static boolean exit;
-	public static String handleSpace(String filePath)
+	private static long start_time; 
+	private static boolean exit;
+	private static String handleSpace(String filePath)
 	{
 		StringBuilder strBuild = new StringBuilder(filePath);
 		for (int i = 0; i<strBuild.length(); i++)
@@ -43,7 +43,7 @@ public class Regression {
 		}
 		return strBuild.toString();
 	}
-	public static boolean fileWrite(String content, String path)
+	private static boolean fileWrite(String content, String path)
 	{
 		File file = new File(path);
 		try {
@@ -59,7 +59,7 @@ public class Regression {
 		}
 		
 	}
-	public static Process runAutoTUT(String targetPath, String workSpaceDetails, String reportPath)
+	private static Process runAutoTUT(String targetPath, String workSpaceDetails, String reportPath)
 	{
 		//ArrayList<String> workSpaceDetails= new ArrayList<String>();	////CHANGE FOR ACCESS
 		String s = null;
@@ -115,7 +115,7 @@ public class Regression {
 		
 	}
 	
-	public static ArrayList<String> getFilesPathList(String workspacePath, String[] allowedProduct)
+	private static ArrayList<String> getFilesPathList(String workspacePath, String[] allowedProduct)
 	{
 		ArrayList <String> outputList = new ArrayList<String>();
 		for(String product : allowedProduct) 
