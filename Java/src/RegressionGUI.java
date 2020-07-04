@@ -44,13 +44,21 @@ public class RegressionGUI {
 	public static String[] allowedProduct;
 	public static int timeoutMilliseconds;
 	public static String reportPath;
+	public static JProgressBar progressBar=new JProgressBar();
+	public static JProgressBar progressBar1=new JProgressBar();
+	public static JLabel timeRemaining = new JLabel("");
+	public static JLabel timeRemaining1 = new JLabel("");
 	private static int allowedProdCount = 0;
+	private static List<String>APL = new ArrayList<String>(); // To store a copy of available product list
+	private static List<String>SPL = new ArrayList<String>(); // To store a copy of selected product list
+	public static JTextArea detailedLogText = new JTextArea();
+	public static JTextArea consoleText = new JTextArea();
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+		EventQueue.invokeLater(new Runnable() { 
 			public void run() {
 				try {
 					RegressionGUI window = new RegressionGUI();
@@ -166,7 +174,7 @@ public class RegressionGUI {
 	        }
 	   }
 	
-public static String chooseFolder(String choosertitle, File workspacePath) {
+	public static String chooseFolder(String choosertitle, File workspacePath) {
 		
 		String output = new String();
 		JFileChooser chooser;
@@ -221,6 +229,38 @@ public static String chooseFolder(String choosertitle, File workspacePath) {
 		return output;
 	}
 	
+	public static void writeToConsole(JTextArea console, String data)
+	{
+		console.append(data);
+	}
+	private static void exitRegressionGUI()
+	{
+		ThreadStop.StopThread(Regression.process);
+		ThreadStop.StopThread(Regression.timer);
+		Regression.stopFlag = true;
+		try {
+			Process p = Runtime.getRuntime().exec("pkill -f python");
+		}
+		catch(Exception e1)
+		{
+			e1.printStackTrace();
+		}
+		frame.dispose();
+		
+	}
+	public static void terminateRegression()
+	{
+		ThreadStop.StopThread(Regression.process);
+		ThreadStop.StopThread(Regression.timer);
+		Regression.stopFlag = true;
+		try {
+			Process p = Runtime.getRuntime().exec("pkill -f python");
+		}
+		catch(Exception e1)
+		{
+			e1.printStackTrace();
+		}
+	}
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 599, 596);
@@ -300,21 +340,25 @@ public static String chooseFolder(String choosertitle, File workspacePath) {
         allowedProductList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         scrollPane.setViewportView(allowedProductList);
         
-        JTextArea allowedListArea = new JTextArea();
-        allowedListArea.setBounds(468, 103, 76, 82);
-        regressionSetting.add(allowedListArea);
+        JScrollPane scrollPane_2 = new JScrollPane();
+        scrollPane_2.setBounds(466, 103, 80, 83);
+        regressionSetting.add(scrollPane_2);
+        
+        JList selectedAllowedList = new JList();
+        selectedAllowedList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        scrollPane_2.setViewportView(selectedAllowedList);
         
         JButton toBtn = new JButton(">>");
         toBtn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		List <String> valuesSelected = allowedProductList.getSelectedValuesList();
-        		for(String value : valuesSelected)
-        			{
-        				String temp = allowedListArea.getText();
-        				temp += value+"\n";
-        				allowedListArea.setText(temp);
-        				allowedProduct[allowedProdCount++] = value;
-        			}
+        		// Get from the allowed Product list
+        		String selectedAllowedElement = (String) allowedProductList.getSelectedValue();
+        		// Now we transact between APL and SPL
+        		APL.remove(selectedAllowedElement);
+        		SPL.add(selectedAllowedElement);
+        		// Now add to the JList
+        		selectedAllowedList.setListData(SPL.toArray());
+        		allowedProductList.setListData(APL.toArray());
         	}
         });
         toBtn.setBounds(422, 100, 44, 29);
@@ -323,15 +367,14 @@ public static String chooseFolder(String choosertitle, File workspacePath) {
         JButton fromBtn = new JButton("<<");
         fromBtn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		String temp = allowedListArea.getText();
-        		String[] tempList = temp.split("\n");
-        		tempList = (String[]) popElement(tempList);
-        		
-        		for (String val:tempList)
-        		{
-        			allowedListArea.setText(val+"\n");
-        			allowedProduct = (String[]) popElement(allowedProduct);
-        		}
+        		// Get from the allowed Product list
+        		String selectedSelectedElement = (String) selectedAllowedList.getSelectedValue();
+        		// Now we transact between APL and SPL
+        		SPL.remove(selectedSelectedElement);
+        		APL.add(selectedSelectedElement);
+        		// Now add to the JList
+        		selectedAllowedList.setListData(SPL.toArray());
+        		allowedProductList.setListData(APL.toArray());
         	}
         });
         fromBtn.setBounds(423, 156, 44, 29);
@@ -343,15 +386,14 @@ public static String chooseFolder(String choosertitle, File workspacePath) {
 				workspacePath = chooseFolder("Workspace File Path", new File(""));
 				workspaceField.setText(workspacePath);
 				allowedProductList.setEnabled(true);
-				ArrayList<String>temp = new ArrayList<>();
 				int i = 0;
 				
 				for (String fdr : new File(workspacePath).list())
 				{
 					if (fdr.length()<=2)
-						temp.add(fdr);
+						APL.add(fdr);
 				}
-				allowedProductList.setListData(temp.toArray());
+				allowedProductList.setListData(APL.toArray());
 				//allowedProduct = (String[])catchList.toArray();
 			}
 		});
@@ -371,28 +413,56 @@ public static String chooseFolder(String choosertitle, File workspacePath) {
 		JButton start = new JButton("START");
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				boolean startFlag = true;
 				if (workspaceField.getText().isEmpty())
 				{
 					Message.setMessage("Workspace path is a mandatory input and should be chosen", 0);
+					startFlag = false;
 				}
-				if (targetPathField.getText().isEmpty())
+				else if (targetPathField.getText().isEmpty())
 				{
 					Message.setMessage("Target path is a mandatory input and should be choosed", 0);
+					startFlag = false;
 				}
-				if (timeoutField.getText().isEmpty())
+				else if (timeoutField.getText().isEmpty())
 				{
 					Message.setMessage("Timeout is a mandatory input and should be filled", 0);
+					startFlag = false;
 				}
-				if (reportPathField.getText().isEmpty())
+				else if (reportPathField.getText().isEmpty())
 				{
 					Message.setMessage("Report Path is a mandatory input and should be choosed", 0);
+					startFlag = false;
 				}
-				if (!allowedListArea.getText().isEmpty())
+				else if (SPL.size() < 1)
 				{
 					Message.setMessage("Products is a mandatory input and should be choosed", 0);
+					startFlag = false;
 				}
-				timeoutMilliseconds = Integer.parseInt(timeoutField.getText())*1000;
-				Regression.runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPath);
+				
+				if (startFlag)
+				{
+					try
+					{
+						timeoutMilliseconds = Integer.parseInt(timeoutField.getText())*1000;
+					}
+					catch(Exception e1)
+					{
+						Message.setMessage(e1.getLocalizedMessage()+"\nTimeout in sec : NOT A NUMBER", 0);
+						startFlag = false;
+					}
+					if (startFlag)
+					{
+						start.setEnabled(false);
+						new Thread() {
+							public void run()
+							{
+								Regression.runRegression(targetPath, workspacePath, SPL, timeoutMilliseconds, reportPath);
+							}
+						}.start();
+					}
+					
+				}
 			}
 		});
 		start.setBounds(228, 204, 117, 29);
@@ -402,8 +472,9 @@ public static String chooseFolder(String choosertitle, File workspacePath) {
 		console.setBounds(21, 287, 523, 113);
 		regressionSetting.add(console);
 		
-		JProgressBar progressBar=new JProgressBar();
-		progressBar.setBounds(6, 245, 554, 30);
+		console.setViewportView(consoleText);
+		
+		progressBar.setBounds(6, 229, 554, 30);
         progressBar.setBorderPainted(true);
         progressBar.setStringPainted(true);
         progressBar.setBackground(Color.WHITE);
@@ -413,11 +484,22 @@ public static String chooseFolder(String choosertitle, File workspacePath) {
         regressionSetting.add(progressBar);
         
         JButton btnTerminate = new JButton("TERMINATE");
+        btnTerminate.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		terminateRegression();
+        		start.setEnabled(true);
+        	}
+        });
         btnTerminate.setForeground(Color.RED);
         btnTerminate.setBounds(176, 423, 117, 29);
         regressionSetting.add(btnTerminate);
         
         JButton btnExit = new JButton("EXIT");
+        btnExit.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		exitRegressionGUI();
+        	}
+        });
         btnExit.setForeground(Color.RED);
         btnExit.setBounds(305, 423, 117, 29);
         regressionSetting.add(btnExit);
@@ -427,6 +509,20 @@ public static String chooseFolder(String choosertitle, File workspacePath) {
         lblNewLabel_1.setBounds(346, 81, 158, 16);
         regressionSetting.add(lblNewLabel_1);
         
+        JLabel lblNewLabel_2 = new JLabel("Available");
+        lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel_2.setBounds(346, 186, 76, 16);
+        regressionSetting.add(lblNewLabel_2);
+        
+        JLabel lblSelected = new JLabel("Selected");
+        lblSelected.setHorizontalAlignment(SwingConstants.CENTER);
+        lblSelected.setBounds(469, 186, 76, 16);
+        regressionSetting.add(lblSelected);
+        timeRemaining.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        timeRemaining.setBounds(6, 259, 554, 16);
+        regressionSetting.add(timeRemaining);
+        
 		Panel regressionLog = new Panel();
 		tabbedPane_1.addTab("Regression Log", null, regressionLog, null);
 		regressionLog.setLayout(null);
@@ -435,21 +531,33 @@ public static String chooseFolder(String choosertitle, File workspacePath) {
 		scrollPane_1.setBounds(6, 35, 554, 346);
 		regressionLog.add(scrollPane_1);
 		
+		scrollPane_1.setViewportView(detailedLogText);
+		
 		JButton terminate = new JButton("TERMINATE");
+		terminate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				terminateRegression();
+        		start.setEnabled(true);
+			}
+		});
 		terminate.setForeground(Color.RED);
 		terminate.setBounds(176, 423, 117, 29);
 		regressionLog.add(terminate);
 		
 		JButton btnExit_1 = new JButton("EXIT");
+		btnExit_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				exitRegressionGUI();
+			}
+		});
 		btnExit_1.setForeground(Color.RED);
 		btnExit_1.setBounds(305, 423, 117, 29);
 		regressionLog.add(btnExit_1);
 		
 		JLabel lblNewLabel = new JLabel("Detailed Log");
-		lblNewLabel.setBounds(18, 7, 199, 16);
+		lblNewLabel.setBounds(18, 7, 199, 16); 
 		regressionLog.add(lblNewLabel);
 		
-		JProgressBar progressBar1=new JProgressBar();
 		progressBar1.setBounds(6, 393, 554, 30);
 		progressBar1.setBorderPainted(true);
 		progressBar1.setStringPainted(true);
@@ -458,5 +566,9 @@ public static String chooseFolder(String choosertitle, File workspacePath) {
 		progressBar1.setValue(0);
 		progressBar1.setVisible(true);
 		regressionLog.add(progressBar1);
+		
+		timeRemaining1.setHorizontalAlignment(SwingConstants.TRAILING);
+		timeRemaining1.setBounds(103, 7, 457, 16);
+		regressionLog.add(timeRemaining1);
 	}
 }

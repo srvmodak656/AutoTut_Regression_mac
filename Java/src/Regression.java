@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -30,7 +31,10 @@ import java.util.Scanner;
 public class Regression {
 	private static long start_time; 
 	private static boolean exit;
+	public static boolean stopFlag = false;
+	
 	private static String handleSpace(String filePath)
+	
 	{
 		StringBuilder strBuild = new StringBuilder(filePath);
 		for (int i = 0; i<strBuild.length(); i++)
@@ -94,6 +98,7 @@ public class Regression {
 	                } 
 	                catch (IOException e) { 
 	                    System.out.println("exception occoured" + e); 
+	                    RegressionGUI.detailedLogText.append("exception occoured" + e + "\n"); 
 	                } 
 	                catch(NullPointerException e)
 	                {
@@ -115,7 +120,7 @@ public class Regression {
 		
 	}
 	
-	private static ArrayList<String> getFilesPathList(String workspacePath, String[] allowedProduct)
+	private static ArrayList<String> getFilesPathList(String workspacePath, List<String> allowedProduct)
 	{
 		ArrayList <String> outputList = new ArrayList<String>();
 		for(String product : allowedProduct) 
@@ -142,6 +147,7 @@ public class Regression {
 					{
 						e.getSuppressed();
 						System.out.println("No .b files found in "+folderName);
+						RegressionGUI.detailedLogText.append("No .b files found in "+folderName+"\n");
 					}
 				}
 			}
@@ -149,22 +155,52 @@ public class Regression {
 		return outputList;
 	}
 	
-	public static void runRegression(String targetPath, String workspacePath, String[] allowedProduct, int timeoutMilliseconds, String reportPath)
+	public static Thread timer = new Thread();
+	
+	public static Thread process = new Thread();
+	
+	public static String getTime(long timeInSecs)
+	{
+		String output = "";
+		int mins = (int) (timeInSecs/60); // to convert into seconds
+		int secs = (int) (timeInSecs%60);
+		int hrs = (int) mins/60;
+		mins = (int) mins%60;
+		output = hrs+" hrs "+mins+" mins "+secs+" seconds";
+		return output;
+	}
+	
+	public static void runRegression(String targetPath, String workspacePath, List<String> allowedProduct, int timeoutMilliseconds, String reportPath)
 	{
 		ArrayList<String> fileList = getFilesPathList(workspacePath, allowedProduct);
 		int count = 1;
+		stopFlag = false;
 		for(String filePath : fileList)
 		{
+			if(stopFlag)
+			{
+				System.out.println("Regression Terminated by user");
+				RegressionGUI.consoleText.append("Regression Terminated by user");
+				RegressionGUI.detailedLogText.append("Regression Terminated by user");
+				RegressionGUI.progressBar.setValue(0);
+				RegressionGUI.progressBar1.setValue(0);
+				RegressionGUI.timeRemaining.setText("");
+				RegressionGUI.timeRemaining1.setText("");
+				break;
+			}
 			System.out.println("Running AutoTUT for "+filePath);
+			RegressionGUI.consoleText.append("Running AutoTUT for "+filePath+"\n");
+			RegressionGUI.detailedLogText.append("Running AutoTUT for "+filePath+"\n");
 			long timeRemaining = (fileList.size()-count)*(timeoutMilliseconds/1000);
-			int mins = (int) (timeRemaining/60);
-			int secs = (int) (timeRemaining%60);
-			int hrs = (int) mins/60;
-			mins = (int) mins%60;
 			System.out.println("Remaining "+(fileList.size()-count));
-			System.out.println("Remaining time approx : "+hrs+" hrs "+mins+" mins "+secs+" seconds");
+			RegressionGUI.detailedLogText.append("Remaining "+(fileList.size()-count)+"\n");
+			RegressionGUI.progressBar.setValue((int)((long)(count/fileList.size())*100));
+			RegressionGUI.progressBar1.setValue((count/fileList.size())*100);
+			RegressionGUI.timeRemaining.setText("Remaining time approx : "+getTime(timeRemaining));
+			RegressionGUI.timeRemaining1.setText("Remaining time approx : "+getTime(timeRemaining));
+			System.out.println("Remaining time approx : "+getTime(timeRemaining));
 			count++;
-			Thread timer = new Thread()  {
+			timer = new Thread()  {
 				
 				public void run() {
 					try {
@@ -177,7 +213,7 @@ public class Regression {
 				}
 			};
 			timer.start();
-			Thread process = new Thread() {
+			process = new Thread() {
 				public void run() {
 					Process p = runAutoTUT(targetPath, filePath, reportPath);
 					p.destroy();
@@ -222,9 +258,19 @@ public class Regression {
 		String workspacePath = scan.next();
 		System.out.println("Product (like AA, FL, EB). Enter it separated by commas : ");
 		String product = scan.next();
-		String [] allowedProduct = product.split(",");
-		for(int i = 0; i<allowedProduct.length; i++)
-			allowedProduct[i] = allowedProduct[i].trim();
+		String [] temp = product.split(",");
+		List<String>allowedProduct = new ArrayList<String>();
+		try {
+			for(int i = 0; i<temp.length; i++)
+				allowedProduct.add(temp[i]);
+				
+			for(int i = 0; i<allowedProduct.size(); i++)
+				allowedProduct.set(i, allowedProduct.get(i).trim());
+		}
+		catch(Exception e)
+		{
+			e.getSuppressed();
+		}
 		System.out.println("Timeout in milliseconds : ");
 		int timeoutMilliseconds = scan.nextInt();
 		while(true)
@@ -234,9 +280,12 @@ public class Regression {
 			if (!new File(reportPath).isDirectory())
 			{
 				System.out.println("Starting regression");
+				RegressionGUI.consoleText.append("Starting regression\n");
+				RegressionGUI.detailedLogText.append("Starting regression\n");
 				long start_time = System.nanoTime();
 				runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPath);
 				System.out.println("Regression stopped, total time taken = "+(System.nanoTime() - start_time)+ " seconds");
+				RegressionGUI.detailedLogText.append("Regression stopped, total time taken = "+(System.nanoTime() - start_time)+ " seconds\n");
 				break;
 			}
 			else
@@ -244,8 +293,6 @@ public class Regression {
 				System.out.println("Report generation path is a directory try again");
 			}
 		}
-		
-		
 	}
 
 }

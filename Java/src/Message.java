@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 public class Message {
 
 	public JFrame frame;
-
 	/**
 	 * Launch the application.
 	 */
@@ -43,10 +42,61 @@ public class Message {
 	private void initialize(String Message, int exitStatus) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 378, 235);
+		
+		JButton btnOk = new JButton("Ok");
+		btnOk.setVisible(false);
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+			}
+		});
+		frame.getRootPane().setDefaultButton(btnOk);
+		btnOk.setBounds(137, 157, 89, 23);
+		frame.getContentPane().add(btnOk);
+		
+		JButton btnYes = new JButton("Yes");
+		btnYes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegressionGUI.yesNoFlag = true;
+				frame.dispose();
+			}
+		});
+		btnYes.setVisible(false);
+		btnYes.setBounds(64, 178, 117, 29);
+		frame.getContentPane().add(btnYes);
+		
+		JButton btnNo = new JButton("no");
+		btnNo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegressionGUI.yesNoFlag = false;
+				frame.dispose();
+			}
+		});
+		btnNo.setVisible(false);
+		btnNo.setBounds(193, 178, 117, 29);
+		frame.getContentPane().add(btnNo);
+		
 		if(exitStatus == 0)	// 0 to dispose, 1 to close
+			{
+				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				btnNo.setVisible(false);
+				btnYes.setVisible(false);
+				btnOk.setVisible(true);
+			}
+		else if(exitStatus == 1)
+			{
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				btnNo.setVisible(false);
+				btnYes.setVisible(false);
+				btnOk.setVisible(true);
+			}
+		else if(exitStatus == 2) // will change the yesNo flag of the calling frame class
+		{
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		else
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			btnNo.setVisible(true);
+			btnYes.setVisible(true);
+			btnOk.setVisible(false);
+		}
 		frame.getContentPane().setLayout(null);
 		
 		JTextArea messageText = new JTextArea();
@@ -58,15 +108,6 @@ public class Message {
 		messageText.setBounds(38, 11, 286, 135);
 		frame.getContentPane().add(messageText);
 		frame.setLocationRelativeTo(null);
-		JButton btnOk = new JButton("Ok");
-		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				frame.dispose();
-			}
-		});
-		frame.getRootPane().setDefaultButton(btnOk);
-		btnOk.setBounds(137, 157, 89, 23);
-		frame.getContentPane().add(btnOk);
 	}
 	
 	public static void setMessage(String Message, int exitStatus) {

@@ -5989,3 +5989,1391 @@ Binding(COMMAND+SHIFT+T,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
+!SESSION 2020-07-03 17:12:42.879 -----------------------------------------------
+eclipse.buildId=4.16.0.I20200604-0540
+java.version=14.0.1
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_IN
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/souravmodak/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/souravmodak/.eclipse_keyring
+
+!ENTRY org.eclipse.jface 2 0 2020-07-03 17:12:54.458
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2020-07-03 17:12:54.458
+!MESSAGE A conflict occurred for COMMAND+SHIFT+T:
+Binding(COMMAND+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@2ba08f26,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(COMMAND+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6033f36c,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SESSION 2020-07-03 17:43:31.898 -----------------------------------------------
+eclipse.buildId=4.16.0.I20200604-0540
+java.version=14.0.1
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_IN
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/souravmodak/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/souravmodak/.eclipse_keyring
+
+!ENTRY org.eclipse.jface 2 0 2020-07-03 17:43:52.880
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2020-07-03 17:43:52.880
+!MESSAGE A conflict occurred for COMMAND+SHIFT+T:
+Binding(COMMAND+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@2ea4e762,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(COMMAND+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@444c0f9a,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.jdt.ui 2 0 2020-07-03 17:45:18.383
+!MESSAGE The 'org.eclipse.jdt.ui.JavaAllCompletionProposalComputer' proposal computer from the 'org.eclipse.jdt.ui' plug-in did not complete normally. The extension has thrown a runtime exception.
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.jdt.internal.compiler.ast.QualifiedAllocationExpression.getAnonymousConstructorBinding(QualifiedAllocationExpression.java:663)
+	at org.eclipse.jdt.internal.compiler.ast.QualifiedAllocationExpression.resolveTypeForQualifiedAllocationExpression(QualifiedAllocationExpression.java:557)
+	at org.eclipse.jdt.internal.compiler.ast.QualifiedAllocationExpression.resolveType(QualifiedAllocationExpression.java:304)
+	at org.eclipse.jdt.internal.codeassist.complete.CompletionOnMemberAccess.resolveType(CompletionOnMemberAccess.java:61)
+	at org.eclipse.jdt.internal.compiler.ast.UnaryExpression.resolveType(UnaryExpression.java:232)
+	at org.eclipse.jdt.internal.compiler.ast.Expression.resolve(Expression.java:1082)
+	at org.eclipse.jdt.internal.compiler.ast.AbstractMethodDeclaration.resolveStatements(AbstractMethodDeclaration.java:660)
+	at org.eclipse.jdt.internal.compiler.ast.MethodDeclaration.resolveStatements(MethodDeclaration.java:361)
+	at org.eclipse.jdt.internal.compiler.ast.AbstractMethodDeclaration.resolve(AbstractMethodDeclaration.java:569)
+	at org.eclipse.jdt.internal.compiler.ast.TypeDeclaration.resolve(TypeDeclaration.java:1490)
+	at org.eclipse.jdt.internal.compiler.ast.TypeDeclaration.resolve(TypeDeclaration.java:1590)
+	at org.eclipse.jdt.internal.compiler.ast.QualifiedAllocationExpression.getAnonymousConstructorBinding(QualifiedAllocationExpression.java:666)
+	at org.eclipse.jdt.internal.compiler.ast.QualifiedAllocationExpression.resolveTypeForQualifiedAllocationExpression(QualifiedAllocationExpression.java:557)
+	at org.eclipse.jdt.internal.compiler.ast.QualifiedAllocationExpression.resolveType(QualifiedAllocationExpression.java:304)
+	at org.eclipse.jdt.internal.compiler.ast.Expression.resolve(Expression.java:1082)
+	at org.eclipse.jdt.internal.compiler.ast.AbstractMethodDeclaration.resolveStatements(AbstractMethodDeclaration.java:660)
+	at org.eclipse.jdt.internal.compiler.ast.MethodDeclaration.resolveStatements(MethodDeclaration.java:361)
+	at org.eclipse.jdt.internal.compiler.ast.AbstractMethodDeclaration.resolve(AbstractMethodDeclaration.java:569)
+	at org.eclipse.jdt.internal.compiler.ast.TypeDeclaration.resolve(TypeDeclaration.java:1490)
+	at org.eclipse.jdt.internal.compiler.ast.TypeDeclaration.resolve(TypeDeclaration.java:1615)
+	at org.eclipse.jdt.internal.compiler.ast.CompilationUnitDeclaration.resolve(CompilationUnitDeclaration.java:667)
+	at org.eclipse.jdt.internal.codeassist.CompletionEngine.complete(CompletionEngine.java:2280)
+	at org.eclipse.jdt.internal.core.Openable.codeComplete(Openable.java:136)
+	at org.eclipse.jdt.internal.core.CompilationUnit.codeComplete(CompilationUnit.java:366)
+	at org.eclipse.jdt.internal.core.CompilationUnit.codeComplete(CompilationUnit.java:356)
+	at org.eclipse.jdt.internal.ui.text.java.JavaCompletionProposalComputer.internalComputeCompletionProposals(JavaCompletionProposalComputer.java:257)
+	at org.eclipse.jdt.internal.ui.text.java.JavaCompletionProposalComputer.computeCompletionProposals(JavaCompletionProposalComputer.java:219)
+	at org.eclipse.jdt.internal.ui.text.java.JavaTypeCompletionProposalComputer.computeCompletionProposals(JavaTypeCompletionProposalComputer.java:65)
+	at org.eclipse.jdt.internal.ui.text.java.CompletionProposalComputerDescriptor.computeCompletionProposals(CompletionProposalComputerDescriptor.java:345)
+	at org.eclipse.jdt.internal.ui.text.java.CompletionProposalCategory.computeCompletionProposals(CompletionProposalCategory.java:340)
+	at org.eclipse.jdt.internal.ui.text.java.ContentAssistProcessor.collectProposals(ContentAssistProcessor.java:333)
+	at org.eclipse.jdt.internal.ui.text.java.ContentAssistProcessor.computeCompletionProposals(ContentAssistProcessor.java:289)
+	at org.eclipse.jface.text.contentassist.AsyncCompletionProposalPopup.lambda$10(AsyncCompletionProposalPopup.java:351)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.text.contentassist.AsyncCompletionProposalPopup.lambda$9(AsyncCompletionProposalPopup.java:350)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1764)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1756)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1016)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1665)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1598)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:177)
+
+!ENTRY org.eclipse.ui 4 0 2020-07-03 19:20:04.455
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser$ExecutionFlowParseVisitor$4.run(JavaInfoParser.java:1128)
+	at org.eclipse.wb.internal.core.utils.execution.ExecutionUtils.runRethrow(ExecutionUtils.java:119)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser$ExecutionFlowParseVisitor.createVariableSupport(JavaInfoParser.java:1110)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser$ExecutionFlowParseVisitor.endVisit(JavaInfoParser.java:1094)
+	at org.eclipse.jdt.core.dom.VariableDeclarationFragment.accept0(VariableDeclarationFragment.java:240)
+	at org.eclipse.jdt.core.dom.ASTNode.accept(ASTNode.java:2971)
+	at org.eclipse.jdt.core.dom.ASTNode.acceptChildren(ASTNode.java:3042)
+	at org.eclipse.jdt.core.dom.FieldDeclaration.accept0(FieldDeclaration.java:273)
+	at org.eclipse.jdt.core.dom.ASTNode.accept(ASTNode.java:2971)
+	at org.eclipse.wb.core.eval.ExecutionFlowUtils.visitFields(ExecutionFlowUtils.java:264)
+	at org.eclipse.wb.core.eval.ExecutionFlowUtils.visit(ExecutionFlowUtils.java:217)
+	at org.eclipse.wb.core.eval.ExecutionFlowUtils.visit(ExecutionFlowUtils.java:191)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser.parseRootMethods(JavaInfoParser.java:312)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser.parse(JavaInfoParser.java:268)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser.access$9(JavaInfoParser.java:238)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser$1.runObject(JavaInfoParser.java:153)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser$1.runObject(JavaInfoParser.java:1)
+	at org.eclipse.wb.internal.core.utils.execution.ExecutionUtils.runDesignTime(ExecutionUtils.java:159)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser.parse(JavaInfoParser.java:151)
+	at org.eclipse.wb.internal.core.editor.DesignPage.internal_refreshGEF(DesignPage.java:534)
+	at org.eclipse.wb.internal.core.editor.DesignPage.access$9(DesignPage.java:522)
+	at org.eclipse.wb.internal.core.editor.DesignPage$8$1.run(DesignPage.java:449)
+	at org.eclipse.swt.widgets.Synchronizer.syncExec(Synchronizer.java:236)
+	at org.eclipse.ui.internal.UISynchronizer.syncExec(UISynchronizer.java:133)
+	at org.eclipse.swt.widgets.Display.syncExec(Display.java:4992)
+	at org.eclipse.wb.internal.core.editor.DesignPage$8.run(DesignPage.java:446)
+	at org.eclipse.jface.operation.ModalContext.runInCurrentThread(ModalContext.java:436)
+	at org.eclipse.jface.operation.ModalContext.run(ModalContext.java:352)
+	at org.eclipse.jface.dialogs.ProgressMonitorDialog.run(ProgressMonitorDialog.java:469)
+	at org.eclipse.wb.internal.core.editor.DesignPage.internal_refreshGEF_withProgress(DesignPage.java:465)
+	at org.eclipse.wb.internal.core.editor.DesignPage.internal_refreshGEF(DesignPage.java:415)
+	at org.eclipse.wb.internal.core.editor.UndoManager.refreshDesignerEditor(UndoManager.java:381)
+	at org.eclipse.wb.internal.core.editor.UndoManager$6.run(UndoManager.java:330)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4124)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3791)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1158)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1047)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:658)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:557)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:154)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:150)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:657)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:594)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1447)
+
+!ENTRY org.eclipse.wb.core 4 4 2020-07-03 19:20:04.497
+!MESSAGE Designer [1.10.0.201812270937.202007031920]: java.lang.NullPointerException
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.wb.internal.core.editor.structure.components.ComponentsTreePage$5.run(ComponentsTreePage.java:157)
+	at org.eclipse.wb.internal.core.utils.execution.ExecutionUtils.runLog(ExecutionUtils.java:106)
+	at org.eclipse.wb.internal.core.editor.structure.components.ComponentsTreePage.selectGraphicalViewer(ComponentsTreePage.java:148)
+	at org.eclipse.wb.internal.core.editor.structure.components.ComponentsTreePage.access$0(ComponentsTreePage.java:145)
+	at org.eclipse.wb.internal.core.editor.structure.components.ComponentsTreePage$1.selectionChanged(ComponentsTreePage.java:119)
+	at org.eclipse.wb.internal.gef.core.AbstractEditPartViewer.fireSelectionChanged(AbstractEditPartViewer.java:202)
+	at org.eclipse.wb.internal.gef.core.AbstractEditPartViewer.setSelection(AbstractEditPartViewer.java:262)
+	at org.eclipse.wb.internal.core.utils.gef.EditPartsSelectionProvider.setSelection(EditPartsSelectionProvider.java:77)
+	at org.eclipse.wb.internal.core.editor.UndoManager.restoreSelection(UndoManager.java:271)
+	at org.eclipse.wb.internal.core.editor.UndoManager.restoreState(UndoManager.java:248)
+	at org.eclipse.wb.internal.core.editor.UndoManager.refreshDesignerEditor(UndoManager.java:385)
+	at org.eclipse.wb.internal.core.editor.UndoManager$6.run(UndoManager.java:330)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4124)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3791)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1158)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1047)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:658)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:557)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:154)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:150)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:657)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:594)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1447)
+
+!ENTRY org.eclipse.jdt.core 4 4 2020-07-03 19:28:55.549
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+/*
+ * This is the java module to run regression and is a multithreaded module.
+ * It is advised to be cautious about the code push since if now monitored 
+ * properly then the code which is pushed can crash the process management of 
+ * the operating system and can crash it. Also there is a possibility that 
+ * a not code which is written casually can mess with the other program which 
+ * is running in java jvm. So it is mandated to check it thoroughly with the 
+ * architect or author of this module before pushing it to the build.
+ * 
+ * AUTHOR :- Sourav Modak
+ * Date :- 1st July 2020
+ * INDIA
+ * 
+ */
+public class Regression {
+	private static long start_time; 
+	private static boolean exit;
+	private static String handleSpace(String filePath)
+	{
+		StringBuilder strBuild = new StringBuilder(filePath);
+		for (int i = 0; i<strBuild.length(); i++)
+		{
+			if(strBuild.charAt(i) == ' ')
+			{
+				strBuild.deleteCharAt(i);
+				strBuild.replace(i, i, "|");
+			}
+		}
+		return strBuild.toString();
+	}
+	private static boolean fileWrite(String content, String path)
+	{
+		File file = new File(path);
+		try {
+			ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(file));
+			objOut.writeObject(content);
+			objOut.close();
+			return true;
+		}
+		catch(Exception e1)
+		{
+			System.out.println(e1.getMessage());
+			return false;
+		}
+		
+	}
+	private static Process runAutoTUT(String targetPath, String workSpaceDetails, String reportPath)
+	{
+		//ArrayList<String> workSpaceDetails= new ArrayList<String>();	////CHANGE FOR ACCESS
+		String s = null;
+		String errorString = null;
+		String tutWrittenPath = "";
+		try {
+			Process p = Runtime.getRuntime().exec("python3 "+targetPath+File.separator+"writeTut.py "+workSpaceDetails);
+			BufferedReader stdInput = new BufferedReader(new 
+	                 InputStreamReader(p.getInputStream()));
+
+	            BufferedReader stdError = new BufferedReader(new 
+	                 InputStreamReader(p.getErrorStream()));
+
+	            while ((s = stdError.readLine()) != null) {
+	                //System.out.println(s);
+	                
+	                if (s.startsWith("TUT file written in "))
+	                {
+	                	tutWrittenPath = s.split("TUT file written in ")[1];
+	                }
+	                else if (!s.contains("Done") && !s.startsWith("TUT file written in "))
+	                	errorString += "\n [ERROR]"+" {"+workSpaceDetails+"} "+s;
+	                File reportFile = new File(reportPath);
+	        		
+	                try { 
+	                	if(!reportFile.exists())
+	                		reportFile.createNewFile();
+	                    BufferedWriter out = new BufferedWriter(new FileWriter(reportFile, true)); 
+	                    if(errorString!=null || !errorString.isEmpty())
+	                    	out.write(errorString+"\n"); 
+	                    out.close(); 
+	                } 
+	                catch (IOException e) { 
+	                    System.out.println("exception occoured" + e); 
+	                } 
+	                catch(NullPointerException e)
+	                {
+	                	e.getSuppressed();
+	                }
+	            }
+	            File file = new File(tutWrittenPath);
+	            file.delete(); // Delete the tut file since not needed.
+	          //  System.out.println("File at "+tutWrittenPath+" is deleted successfully");
+	            p.destroy();
+	            return p;
+		}
+		catch(Exception e)
+		{
+			//e.getSuppressed();
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	private static ArrayList<String> getFilesPathList(String workspacePath, List<String> allowedProduct)
+	{
+		ArrayList <String> outputList = new ArrayList<String>();
+		for(String product : allowedProduct) 
+		{
+			String targetPath = workspacePath + File.separator + product;
+			String[] listOfFile = new File(targetPath).list();
+			for(String folderName : listOfFile)
+			{
+				String targetFolderPath = targetPath + File.separator + folderName;
+				if (folderName.startsWith(product))
+				{
+					String fullPath = targetFolderPath + File.separator + "Source" + File.separator + "Private";
+					try
+					{
+						String [] filesInside = new File(fullPath).list();
+						for(String file : filesInside)
+						{
+							String fileFullPath = fullPath + File.separator + file;
+							outputList.add(fileFullPath);
+						}
+						
+					}
+					catch(Exception e)
+					{
+						e.getSuppressed();
+						System.out.println("No .b files found in "+folderName);
+					}
+				}
+			}
+		}
+		return outputList;
+	}
+	
+	public static void runRegression(String targetPath, String workspacePath, List<String> allowedProduct, int timeoutMilliseconds, String reportPath)
+	{
+		ArrayList<String> fileList = getFilesPathList(workspacePath, allowedProduct);
+		int count = 1;
+		for(String filePath : fileList)
+		{
+			System.out.println("Running AutoTUT for "+filePath);
+			RegressionGUI.consoleText.setText(t);("Running AutoTUT for "+filePath);
+			long timeRemaining = (fileList.size()-count)*(timeoutMilliseconds/1000);
+			int mins = (int) (timeRemaining/60);
+			int secs = (int) (timeRemaining%60);
+			int hrs = (int) mins/60;
+			mins = (int) mins%60;
+			System.out.println("Remaining "+(fileList.size()-count));
+			RegressionGUI.progressBar.setValue((count/fileList.size())*100);
+			RegressionGUI.progressBar1.setValue((count/fileList.size())*100);
+			RegressionGUI.timeRemaining.setText("Remaining time approx : "+hrs+" hrs "+mins+" mins "+secs+" seconds");
+			RegressionGUI.timeRemaining1.setText("Remaining time approx : "+hrs+" hrs "+mins+" mins "+secs+" seconds");
+			System.out.println("Remaining time approx : "+hrs+" hrs "+mins+" mins "+secs+" seconds");
+			count++;
+			Thread timer = new Thread()  {
+				
+				public void run() {
+					try {
+						Thread.sleep(timeoutMilliseconds); // timeout
+					}
+					catch(InterruptedException e)
+					{
+						e.printStackTrace();
+					}
+				}
+			};
+			timer.start();
+			Thread process = new Thread() {
+				public void run() {
+					Process p = runAutoTUT(targetPath, filePath, reportPath);
+					p.destroy();
+					p.destroyForcibly();
+				}
+			};
+			process.start();
+			while(true)
+			{
+				if(!timer.isAlive())	// if timer is over
+				{
+					ThreadStop.StopThread(process);
+					break;
+				}
+				if(!process.isAlive())
+				{
+					ThreadStop.StopThread(timer);
+					
+					break;
+					
+				}
+			}
+			if (count%10 == 0)
+			{
+				try {
+					Process p = Runtime.getRuntime().exec("pkill -f python");
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Target path  : ");
+		String targetPath = scan.next();
+		System.out.println("Workspace path  : ");
+		String workspacePath = scan.next();
+		System.out.println("Product (like AA, FL, EB). Enter it separated by commas : ");
+		String product = scan.next();
+		String [] temp = product.split(",");
+		List<String>allowedProduct = new ArrayList<String>();
+		try {
+			for(int i = 0; i<temp.length; i++)
+				allowedProduct.add(temp[i]);
+				
+			for(int i = 0; i<allowedProduct.size(); i++)
+				allowedProduct.set(i, allowedProduct.get(i).trim());
+		}
+		catch(Exception e)
+		{
+			e.getSuppressed();
+		}
+		System.out.println("Timeout in milliseconds : ");
+		int timeoutMilliseconds = scan.nextInt();
+		while(true)
+		{
+			System.out.println("Report generation path : ");
+			String reportPath = scan.next();
+			if (!new File(reportPath).isDirectory())
+			{
+				System.out.println("Starting regression");
+				long start_time = System.nanoTime();
+				runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPath);
+				System.out.println("Regression stopped, total time taken = "+(System.nanoTime() - start_time)+ " seconds");
+				break;
+			}
+			else
+			{
+				System.out.println("Report generation path is a directory try again");
+			}
+		}
+	}
+
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3750)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2141)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2934)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3302)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:450)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:200)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:268)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:596)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1138)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:736)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:802)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1315)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2020-07-03 19:28:55.558
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3750)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2141)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2934)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3302)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:450)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:200)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:268)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:596)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1138)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:736)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:802)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1315)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2020-07-03 19:28:55.559
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3750)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2141)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2934)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3302)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:450)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:200)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:268)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:596)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1138)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:736)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:802)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1315)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.core 4 4 2020-07-03 19:28:56.593
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+/*
+ * This is the java module to run regression and is a multithreaded module.
+ * It is advised to be cautious about the code push since if now monitored 
+ * properly then the code which is pushed can crash the process management of 
+ * the operating system and can crash it. Also there is a possibility that 
+ * a not code which is written casually can mess with the other program which 
+ * is running in java jvm. So it is mandated to check it thoroughly with the 
+ * architect or author of this module before pushing it to the build.
+ * 
+ * AUTHOR :- Sourav Modak
+ * Date :- 1st July 2020
+ * INDIA
+ * 
+ */
+public class Regression {
+	private static long start_time; 
+	private static boolean exit;
+	private static String handleSpace(String filePath)
+	{
+		StringBuilder strBuild = new StringBuilder(filePath);
+		for (int i = 0; i<strBuild.length(); i++)
+		{
+			if(strBuild.charAt(i) == ' ')
+			{
+				strBuild.deleteCharAt(i);
+				strBuild.replace(i, i, "|");
+			}
+		}
+		return strBuild.toString();
+	}
+	private static boolean fileWrite(String content, String path)
+	{
+		File file = new File(path);
+		try {
+			ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(file));
+			objOut.writeObject(content);
+			objOut.close();
+			return true;
+		}
+		catch(Exception e1)
+		{
+			System.out.println(e1.getMessage());
+			return false;
+		}
+		
+	}
+	private static Process runAutoTUT(String targetPath, String workSpaceDetails, String reportPath)
+	{
+		//ArrayList<String> workSpaceDetails= new ArrayList<String>();	////CHANGE FOR ACCESS
+		String s = null;
+		String errorString = null;
+		String tutWrittenPath = "";
+		try {
+			Process p = Runtime.getRuntime().exec("python3 "+targetPath+File.separator+"writeTut.py "+workSpaceDetails);
+			BufferedReader stdInput = new BufferedReader(new 
+	                 InputStreamReader(p.getInputStream()));
+
+	            BufferedReader stdError = new BufferedReader(new 
+	                 InputStreamReader(p.getErrorStream()));
+
+	            while ((s = stdError.readLine()) != null) {
+	                //System.out.println(s);
+	                
+	                if (s.startsWith("TUT file written in "))
+	                {
+	                	tutWrittenPath = s.split("TUT file written in ")[1];
+	                }
+	                else if (!s.contains("Done") && !s.startsWith("TUT file written in "))
+	                	errorString += "\n [ERROR]"+" {"+workSpaceDetails+"} "+s;
+	                File reportFile = new File(reportPath);
+	        		
+	                try { 
+	                	if(!reportFile.exists())
+	                		reportFile.createNewFile();
+	                    BufferedWriter out = new BufferedWriter(new FileWriter(reportFile, true)); 
+	                    if(errorString!=null || !errorString.isEmpty())
+	                    	out.write(errorString+"\n"); 
+	                    out.close(); 
+	                } 
+	                catch (IOException e) { 
+	                    System.out.println("exception occoured" + e); 
+	                } 
+	                catch(NullPointerException e)
+	                {
+	                	e.getSuppressed();
+	                }
+	            }
+	            File file = new File(tutWrittenPath);
+	            file.delete(); // Delete the tut file since not needed.
+	          //  System.out.println("File at "+tutWrittenPath+" is deleted successfully");
+	            p.destroy();
+	            return p;
+		}
+		catch(Exception e)
+		{
+			//e.getSuppressed();
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	private static ArrayList<String> getFilesPathList(String workspacePath, List<String> allowedProduct)
+	{
+		ArrayList <String> outputList = new ArrayList<String>();
+		for(String product : allowedProduct) 
+		{
+			String targetPath = workspacePath + File.separator + product;
+			String[] listOfFile = new File(targetPath).list();
+			for(String folderName : listOfFile)
+			{
+				String targetFolderPath = targetPath + File.separator + folderName;
+				if (folderName.startsWith(product))
+				{
+					String fullPath = targetFolderPath + File.separator + "Source" + File.separator + "Private";
+					try
+					{
+						String [] filesInside = new File(fullPath).list();
+						for(String file : filesInside)
+						{
+							String fileFullPath = fullPath + File.separator + file;
+							outputList.add(fileFullPath);
+						}
+						
+					}
+					catch(Exception e)
+					{
+						e.getSuppressed();
+						System.out.println("No .b files found in "+folderName);
+					}
+				}
+			}
+		}
+		return outputList;
+	}
+	
+	public static void runRegression(String targetPath, String workspacePath, List<String> allowedProduct, int timeoutMilliseconds, String reportPath)
+	{
+		ArrayList<String> fileList = getFilesPathList(workspacePath, allowedProduct);
+		int count = 1;
+		for(String filePath : fileList)
+		{
+			System.out.println("Running AutoTUT for "+filePath);
+			RegressionGUI.consoleText.setText);("Running AutoTUT for "+filePath);
+			long timeRemaining = (fileList.size()-count)*(timeoutMilliseconds/1000);
+			int mins = (int) (timeRemaining/60);
+			int secs = (int) (timeRemaining%60);
+			int hrs = (int) mins/60;
+			mins = (int) mins%60;
+			System.out.println("Remaining "+(fileList.size()-count));
+			RegressionGUI.progressBar.setValue((count/fileList.size())*100);
+			RegressionGUI.progressBar1.setValue((count/fileList.size())*100);
+			RegressionGUI.timeRemaining.setText("Remaining time approx : "+hrs+" hrs "+mins+" mins "+secs+" seconds");
+			RegressionGUI.timeRemaining1.setText("Remaining time approx : "+hrs+" hrs "+mins+" mins "+secs+" seconds");
+			System.out.println("Remaining time approx : "+hrs+" hrs "+mins+" mins "+secs+" seconds");
+			count++;
+			Thread timer = new Thread()  {
+				
+				public void run() {
+					try {
+						Thread.sleep(timeoutMilliseconds); // timeout
+					}
+					catch(InterruptedException e)
+					{
+						e.printStackTrace();
+					}
+				}
+			};
+			timer.start();
+			Thread process = new Thread() {
+				public void run() {
+					Process p = runAutoTUT(targetPath, filePath, reportPath);
+					p.destroy();
+					p.destroyForcibly();
+				}
+			};
+			process.start();
+			while(true)
+			{
+				if(!timer.isAlive())	// if timer is over
+				{
+					ThreadStop.StopThread(process);
+					break;
+				}
+				if(!process.isAlive())
+				{
+					ThreadStop.StopThread(timer);
+					
+					break;
+					
+				}
+			}
+			if (count%10 == 0)
+			{
+				try {
+					Process p = Runtime.getRuntime().exec("pkill -f python");
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Target path  : ");
+		String targetPath = scan.next();
+		System.out.println("Workspace path  : ");
+		String workspacePath = scan.next();
+		System.out.println("Product (like AA, FL, EB). Enter it separated by commas : ");
+		String product = scan.next();
+		String [] temp = product.split(",");
+		List<String>allowedProduct = new ArrayList<String>();
+		try {
+			for(int i = 0; i<temp.length; i++)
+				allowedProduct.add(temp[i]);
+				
+			for(int i = 0; i<allowedProduct.size(); i++)
+				allowedProduct.set(i, allowedProduct.get(i).trim());
+		}
+		catch(Exception e)
+		{
+			e.getSuppressed();
+		}
+		System.out.println("Timeout in milliseconds : ");
+		int timeoutMilliseconds = scan.nextInt();
+		while(true)
+		{
+			System.out.println("Report generation path : ");
+			String reportPath = scan.next();
+			if (!new File(reportPath).isDirectory())
+			{
+				System.out.println("Starting regression");
+				long start_time = System.nanoTime();
+				runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPath);
+				System.out.println("Regression stopped, total time taken = "+(System.nanoTime() - start_time)+ " seconds");
+				break;
+			}
+			else
+			{
+				System.out.println("Report generation path is a directory try again");
+			}
+		}
+	}
+
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3750)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2141)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2934)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3302)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:450)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:200)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:268)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:596)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1138)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:736)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:802)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1315)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2020-07-03 19:28:56.594
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3750)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2141)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2934)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3302)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:450)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:200)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:268)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:596)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1138)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:736)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:802)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1315)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2020-07-03 19:28:56.595
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3750)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2141)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2934)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3302)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:450)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:200)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:268)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:596)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1138)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:736)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:802)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1315)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:131)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:113)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:93)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:90)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:157)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.eclipse.jdt.core 4 4 2020-07-03 19:28:56.622
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+/*
+ * This is the java module to run regression and is a multithreaded module.
+ * It is advised to be cautious about the code push since if now monitored 
+ * properly then the code which is pushed can crash the process management of 
+ * the operating system and can crash it. Also there is a possibility that 
+ * a not code which is written casually can mess with the other program which 
+ * is running in java jvm. So it is mandated to check it thoroughly with the 
+ * architect or author of this module before pushing it to the build.
+ * 
+ * AUTHOR :- Sourav Modak
+ * Date :- 1st July 2020
+ * INDIA
+ * 
+ */
+public class Regression {
+	private static long start_time; 
+	private static boolean exit;
+	private static String handleSpace(String filePath)
+	{
+		StringBuilder strBuild = new StringBuilder(filePath);
+		for (int i = 0; i<strBuild.length(); i++)
+		{
+			if(strBuild.charAt(i) == ' ')
+			{
+				strBuild.deleteCharAt(i);
+				strBuild.replace(i, i, "|");
+			}
+		}
+		return strBuild.toString();
+	}
+	private static boolean fileWrite(String content, String path)
+	{
+		File file = new File(path);
+		try {
+			ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(file));
+			objOut.writeObject(content);
+			objOut.close();
+			return true;
+		}
+		catch(Exception e1)
+		{
+			System.out.println(e1.getMessage());
+			return false;
+		}
+		
+	}
+	private static Process runAutoTUT(String targetPath, String workSpaceDetails, String reportPath)
+	{
+		//ArrayList<String> workSpaceDetails= new ArrayList<String>();	////CHANGE FOR ACCESS
+		String s = null;
+		String errorString = null;
+		String tutWrittenPath = "";
+		try {
+			Process p = Runtime.getRuntime().exec("python3 "+targetPath+File.separator+"writeTut.py "+workSpaceDetails);
+			BufferedReader stdInput = new BufferedReader(new 
+	                 InputStreamReader(p.getInputStream()));
+
+	            BufferedReader stdError = new BufferedReader(new 
+	                 InputStreamReader(p.getErrorStream()));
+
+	            while ((s = stdError.readLine()) != null) {
+	                //System.out.println(s);
+	                
+	                if (s.startsWith("TUT file written in "))
+	                {
+	                	tutWrittenPath = s.split("TUT file written in ")[1];
+	                }
+	                else if (!s.contains("Done") && !s.startsWith("TUT file written in "))
+	                	errorString += "\n [ERROR]"+" {"+workSpaceDetails+"} "+s;
+	                File reportFile = new File(reportPath);
+	        		
+	                try { 
+	                	if(!reportFile.exists())
+	                		reportFile.createNewFile();
+	                    BufferedWriter out = new BufferedWriter(new FileWriter(reportFile, true)); 
+	                    if(errorString!=null || !errorString.isEmpty())
+	                    	out.write(errorString+"\n"); 
+	                    out.close(); 
+	                } 
+	                catch (IOException e) { 
+	                    System.out.println("exception occoured" + e); 
+	                } 
+	                catch(NullPointerException e)
+	                {
+	                	e.getSuppressed();
+	                }
+	            }
+	            File file = new File(tutWrittenPath);
+	            file.delete(); // Delete the tut file since not needed.
+	          //  System.out.println("File at "+tutWrittenPath+" is deleted successfully");
+	            p.destroy();
+	            return p;
+		}
+		catch(Exception e)
+		{
+			//e.getSuppressed();
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	private static ArrayList<String> getFilesPathList(String workspacePath, List<String> allowedProduct)
+	{
+		ArrayList <String> outputList = new ArrayList<String>();
+		for(String product : allowedProduct) 
+		{
+			String targetPath = workspacePath + File.separator + product;
+			String[] listOfFile = new File(targetPath).list();
+			for(String folderName : listOfFile)
+			{
+				String targetFolderPath = targetPath + File.separator + folderName;
+				if (folderName.startsWith(product))
+				{
+					String fullPath = targetFolderPath + File.separator + "Source" + File.separator + "Private";
+					try
+					{
+						String [] filesInside = new File(fullPath).list();
+						for(String file : filesInside)
+						{
+							String fileFullPath = fullPath + File.separator + file;
+							outputList.add(fileFullPath);
+						}
+						
+					}
+					catch(Exception e)
+					{
+						e.getSuppressed();
+						System.out.println("No .b files found in "+folderName);
+					}
+				}
+			}
+		}
+		return outputList;
+	}
+	
+	public static void runRegression(String targetPath, String workspacePath, List<String> allowedProduct, int timeoutMilliseconds, String reportPath)
+	{
+		ArrayList<String> fileList = getFilesPathList(workspacePath, allowedProduct);
+		int count = 1;
+		for(String filePath : fileList)
+		{
+			System.out.println("Running AutoTUT for "+filePath);
+			RegressionGUI.consoleText.setText);("Running AutoTUT for "+filePath);
+			long timeRemaining = (fileList.size()-count)*(timeoutMilliseconds/1000);
+			int mins = (int) (timeRemaining/60);
+			int secs = (int) (timeRemaining%60);
+			int hrs = (int) mins/60;
+			mins = (int) mins%60;
+			System.out.println("Remaining "+(fileList.size()-count));
+			RegressionGUI.progressBar.setValue((count/fileList.size())*100);
+			RegressionGUI.progressBar1.setValue((count/fileList.size())*100);
+			RegressionGUI.timeRemaining.setText("Remaining time approx : "+hrs+" hrs "+mins+" mins "+secs+" seconds");
+			RegressionGUI.timeRemaining1.setText("Remaining time approx : "+hrs+" hrs "+mins+" mins "+secs+" seconds");
+			System.out.println("Remaining time approx : "+hrs+" hrs "+mins+" mins "+secs+" seconds");
+			count++;
+			Thread timer = new Thread()  {
+				
+				public void run() {
+					try {
+						Thread.sleep(timeoutMilliseconds); // timeout
+					}
+					catch(InterruptedException e)
+					{
+						e.printStackTrace();
+					}
+				}
+			};
+			timer.start();
+			Thread process = new Thread() {
+				public void run() {
+					Process p = runAutoTUT(targetPath, filePath, reportPath);
+					p.destroy();
+					p.destroyForcibly();
+				}
+			};
+			process.start();
+			while(true)
+			{
+				if(!timer.isAlive())	// if timer is over
+				{
+					ThreadStop.StopThread(process);
+					break;
+				}
+				if(!process.isAlive())
+				{
+					ThreadStop.StopThread(timer);
+					
+					break;
+					
+				}
+			}
+			if (count%10 == 0)
+			{
+				try {
+					Process p = Runtime.getRuntime().exec("pkill -f python");
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Target path  : ");
+		String targetPath = scan.next();
+		System.out.println("Workspace path  : ");
+		String workspacePath = scan.next();
+		System.out.println("Product (like AA, FL, EB). Enter it separated by commas : ");
+		String product = scan.next();
+		String [] temp = product.split(",");
+		List<String>allowedProduct = new ArrayList<String>();
+		try {
+			for(int i = 0; i<temp.length; i++)
+				allowedProduct.add(temp[i]);
+				
+			for(int i = 0; i<allowedProduct.size(); i++)
+				allowedProduct.set(i, allowedProduct.get(i).trim());
+		}
+		catch(Exception e)
+		{
+			e.getSuppressed();
+		}
+		System.out.println("Timeout in milliseconds : ");
+		int timeoutMilliseconds = scan.nextInt();
+		while(true)
+		{
+			System.out.println("Report generation path : ");
+			String reportPath = scan.next();
+			if (!new File(reportPath).isDirectory())
+			{
+				System.out.println("Starting regression");
+				long start_time = System.nanoTime();
+				runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPath);
+				System.out.println("Regression stopped, total time taken = "+(System.nanoTime() - start_time)+ " seconds");
+				break;
+			}
+			else
+			{
+				System.out.println("Report generation path is a directory try again");
+			}
+		}
+	}
+
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3750)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2141)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2934)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3302)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:323)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1231)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:820)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:271)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:263)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:196)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:186)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:175)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$3.run(SelectionListenerWithASTManager.java:160)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core.manipulation 4 2 2020-07-03 19:28:56.624
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core.manipulation".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3750)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2141)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2934)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3302)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:323)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1231)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:820)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:271)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:263)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:196)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:186)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:175)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$3.run(SelectionListenerWithASTManager.java:160)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core.manipulation 4 0 2020-07-03 19:28:56.625
+!MESSAGE Error in JDT Core during AST creation
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1276)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2020)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3750)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1932)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1963)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3023)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1372)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2944)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2141)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2934)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3302)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1513)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:323)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1231)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:820)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:271)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:263)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:196)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:186)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:175)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$3.run(SelectionListenerWithASTManager.java:160)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SESSION 2020-07-04 09:51:33.196 -----------------------------------------------
+eclipse.buildId=4.16.0.I20200604-0540
+java.version=14.0.1
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_IN
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/souravmodak/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/souravmodak/.eclipse_keyring
+
+!ENTRY org.eclipse.core.net 1 0 2020-07-04 09:51:42.900
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.jface 2 0 2020-07-04 09:51:44.500
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2020-07-04 09:51:44.500
+!MESSAGE A conflict occurred for COMMAND+SHIFT+T:
+Binding(COMMAND+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5274830e,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(COMMAND+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6a0ee80,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
