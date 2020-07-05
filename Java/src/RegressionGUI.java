@@ -34,6 +34,7 @@ import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 import javax.swing.JPanel;
+import java.awt.Window.Type;
 
 public class RegressionGUI {
 
@@ -355,7 +356,7 @@ public class RegressionGUI {
 		List<Object> fromTempDetailsFile = fetchTempRegressionSettingDetails();
 		
 		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.DARK_GRAY);
+		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setBounds(100, 100, 599, 596);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -372,7 +373,7 @@ public class RegressionGUI {
 		frame.getContentPane().add(tabbedPane_1);
 		
 		Panel regressionSetting = new Panel();
-		regressionSetting.setBackground(Color.DARK_GRAY);
+		regressionSetting.setBackground(new Color(0, 0, 0));
 		tabbedPane_1.addTab("Regression Settings", null, regressionSetting, null);
 		regressionSetting.setLayout(null);
 		
@@ -403,28 +404,28 @@ public class RegressionGUI {
 		
 		targetPathField = new JTextField();
 		targetPathField.setForeground(Color.WHITE);
-		targetPathField.setBackground(Color.BLACK);
+		targetPathField.setBackground(Color.DARK_GRAY);
 		targetPathField.setColumns(10);
 		targetPathField.setBounds(120, 13, 130, 26);
 		regressionSetting.add(targetPathField);
 		
 		workspaceField = new JTextField();
 		workspaceField.setForeground(Color.WHITE);
-		workspaceField.setBackground(Color.BLACK);
+		workspaceField.setBackground(Color.DARK_GRAY);
 		workspaceField.setColumns(10);
 		workspaceField.setBounds(412, 13, 130, 26);
 		regressionSetting.add(workspaceField);
 		
 		timeoutField = new JTextField();
 		timeoutField.setForeground(Color.WHITE);
-		timeoutField.setBackground(Color.BLACK);
+		timeoutField.setBackground(Color.DARK_GRAY);
 		timeoutField.setColumns(10);
 		timeoutField.setBounds(120, 76, 130, 26);
 		regressionSetting.add(timeoutField);
 		
 		reportPathField = new JTextField();
 		reportPathField.setForeground(Color.WHITE);
-		reportPathField.setBackground(Color.BLACK);
+		reportPathField.setBackground(Color.DARK_GRAY);
 		reportPathField.setColumns(10);
 		reportPathField.setBounds(120, 125, 130, 26);
 		regressionSetting.add(reportPathField);
@@ -463,7 +464,7 @@ public class RegressionGUI {
         
         JList allowedProductList = new JList();
         allowedProductList.setForeground(Color.WHITE);
-        allowedProductList.setBackground(Color.BLACK);
+        allowedProductList.setBackground(Color.DARK_GRAY);
         allowedProductList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         scrollPane.setViewportView(allowedProductList);
         
@@ -473,7 +474,7 @@ public class RegressionGUI {
         
         JList selectedAllowedList = new JList();
         selectedAllowedList.setForeground(Color.WHITE);
-        selectedAllowedList.setBackground(Color.BLACK);
+        selectedAllowedList.setBackground(Color.DARK_GRAY);
         selectedAllowedList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         scrollPane_2.setViewportView(selectedAllowedList);
         
@@ -643,7 +644,7 @@ public class RegressionGUI {
 		console.setBounds(21, 287, 523, 113);
 		regressionSetting.add(console);
 		consoleText.setForeground(Color.WHITE);
-		consoleText.setBackground(Color.BLACK);
+		consoleText.setBackground(Color.DARK_GRAY);
 		
 		console.setViewportView(consoleText);
 		progressBar.setBackground(Color.WHITE);
@@ -697,7 +698,7 @@ public class RegressionGUI {
         regressionSetting.add(panel);
         
 		Panel regressionLog = new Panel();
-		regressionLog.setBackground(Color.DARK_GRAY);
+		regressionLog.setBackground(Color.BLACK);
 		tabbedPane_1.addTab("Regression Log", null, regressionLog, null);
 		regressionLog.setLayout(null);
 		
@@ -707,7 +708,7 @@ public class RegressionGUI {
 		
 		regressionLog.add(btnExit_1);
 		detailedLogText.setForeground(Color.WHITE);
-		detailedLogText.setBackground(Color.BLACK);
+		detailedLogText.setBackground(Color.DARK_GRAY);
 		
 		scrollPane_1.setViewportView(detailedLogText);
 		
@@ -726,6 +727,7 @@ public class RegressionGUI {
 		
 		
 		JLabel lblNewLabel = new JLabel("Detailed Log");
+		lblNewLabel.setBackground(Color.BLACK);
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setBounds(18, 7, 199, 16); 
 		regressionLog.add(lblNewLabel);
