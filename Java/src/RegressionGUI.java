@@ -53,6 +53,7 @@ public class RegressionGUI {
 	private static List<String>SPL = new ArrayList<String>(); // To store a copy of selected product list
 	public static JTextArea detailedLogText = new JTextArea();
 	public static JTextArea consoleText = new JTextArea();
+	public static boolean yesNoFlag = false;
 
 	/**
 	 * Launch the application.

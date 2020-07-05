@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/souravmodak/Documents/AutoTut_Regression/Java/Thread.jar"/>
+	<classpathentry kind="lib" path="/Users/souravmodak/Documents/Thread.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

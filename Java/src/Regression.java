@@ -32,6 +32,7 @@ public class Regression {
 	private static long start_time; 
 	private static boolean exit;
 	public static boolean stopFlag = false;
+	public static int processFlag = 0; // 0 for CUI and 1 for GUI
 	
 	private static String handleSpace(String filePath)
 	
@@ -98,7 +99,8 @@ public class Regression {
 	                } 
 	                catch (IOException e) { 
 	                    System.out.println("exception occoured" + e); 
-	                    RegressionGUI.detailedLogText.append("exception occoured" + e + "\n"); 
+	                    if (processFlag == 1) 
+	                    	RegressionGUI.detailedLogText.append("exception occoured" + e + "\n"); 
 	                } 
 	                catch(NullPointerException e)
 	                {
@@ -147,7 +149,8 @@ public class Regression {
 					{
 						e.getSuppressed();
 						System.out.println("No .b files found in "+folderName);
-						RegressionGUI.detailedLogText.append("No .b files found in "+folderName+"\n");
+						if (processFlag == 1) 
+							RegressionGUI.detailedLogText.append("No .b files found in "+folderName+"\n");
 					}
 				}
 			}
@@ -180,24 +183,35 @@ public class Regression {
 			if(stopFlag)
 			{
 				System.out.println("Regression Terminated by user");
-				RegressionGUI.consoleText.append("Regression Terminated by user");
-				RegressionGUI.detailedLogText.append("Regression Terminated by user");
-				RegressionGUI.progressBar.setValue(0);
-				RegressionGUI.progressBar1.setValue(0);
-				RegressionGUI.timeRemaining.setText("");
-				RegressionGUI.timeRemaining1.setText("");
+				if (processFlag == 1) 
+				{
+					RegressionGUI.consoleText.append("Regression Terminated by user");
+					RegressionGUI.detailedLogText.append("Regression Terminated by user");
+					RegressionGUI.progressBar.setValue(0);
+					RegressionGUI.progressBar1.setValue(0);
+					RegressionGUI.timeRemaining.setText("");
+					RegressionGUI.timeRemaining1.setText("");
+				}
 				break;
 			}
 			System.out.println("Running AutoTUT for "+filePath);
-			RegressionGUI.consoleText.append("Running AutoTUT for "+filePath+"\n");
-			RegressionGUI.detailedLogText.append("Running AutoTUT for "+filePath+"\n");
+			if (processFlag == 1) 
+			{
+				RegressionGUI.consoleText.append("Running AutoTUT for "+filePath+"\n");
+				RegressionGUI.detailedLogText.append("Running AutoTUT for "+filePath+"\n");
+			}
+			
 			long timeRemaining = (fileList.size()-count)*(timeoutMilliseconds/1000);
 			System.out.println("Remaining "+(fileList.size()-count));
-			RegressionGUI.detailedLogText.append("Remaining "+(fileList.size()-count)+"\n");
-			RegressionGUI.progressBar.setValue((int)((long)(count/fileList.size())*100));
-			RegressionGUI.progressBar1.setValue((count/fileList.size())*100);
-			RegressionGUI.timeRemaining.setText("Remaining time approx : "+getTime(timeRemaining));
-			RegressionGUI.timeRemaining1.setText("Remaining time approx : "+getTime(timeRemaining));
+			if (processFlag == 1) 
+			{
+				RegressionGUI.detailedLogText.append("Remaining "+(fileList.size()-count)+"\n");
+				RegressionGUI.progressBar.setValue((int)((long)(count/fileList.size())*100));
+				RegressionGUI.progressBar1.setValue((count/fileList.size())*100);
+				RegressionGUI.timeRemaining.setText("Remaining time approx : "+getTime(timeRemaining));
+				RegressionGUI.timeRemaining1.setText("Remaining time approx : "+getTime(timeRemaining));
+			}
+			
 			System.out.println("Remaining time approx : "+getTime(timeRemaining));
 			count++;
 			timer = new Thread()  {
@@ -280,12 +294,16 @@ public class Regression {
 			if (!new File(reportPath).isDirectory())
 			{
 				System.out.println("Starting regression");
-				RegressionGUI.consoleText.append("Starting regression\n");
-				RegressionGUI.detailedLogText.append("Starting regression\n");
+				if (processFlag == 1) 
+				{
+					RegressionGUI.consoleText.append("Starting regression\n");
+					RegressionGUI.detailedLogText.append("Starting regression\n");
+				}
 				long start_time = System.nanoTime();
 				runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPath);
 				System.out.println("Regression stopped, total time taken = "+(System.nanoTime() - start_time)+ " seconds");
-				RegressionGUI.detailedLogText.append("Regression stopped, total time taken = "+(System.nanoTime() - start_time)+ " seconds\n");
+				if (processFlag == 1) 
+					RegressionGUI.detailedLogText.append("Regression stopped, total time taken = "+(System.nanoTime() - start_time)+ " seconds\n");
 				break;
 			}
 			else
