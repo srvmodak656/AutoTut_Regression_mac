@@ -17,7 +17,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -31,6 +33,7 @@ import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
+import javax.swing.JPanel;
 
 public class RegressionGUI {
 
@@ -42,7 +45,7 @@ public class RegressionGUI {
 	private static JLabel timeoutLbl;
 	private static JLabel workLbl;
 	private static JLabel lblReportpath;
-	public static String tempFilePath = "Imp/temp.txt";
+	public static String tempFilePath = "temp/workpath.txt";
 	public static String targetPath;
 	public static String workspacePath;
 	public static String[] allowedProduct;
@@ -58,6 +61,7 @@ public class RegressionGUI {
 	public static JTextArea detailedLogText = new JTextArea();
 	public static JTextArea consoleText = new JTextArea();
 	public static boolean yesNoFlag = false;
+	public static String reportPathFull = "";
 
 	/**
 	 * Launch the application.
@@ -269,7 +273,7 @@ public class RegressionGUI {
 	
 	public static void recordTempRegressionSettingsDetails(String targetPath, String workspacePath, int timeoutMilliseconds, List<String> allowedProducts, String reportPath)
 	{
-		File tempDetailsFile = new File("temp/tmp.txt");
+		File tempDetailsFile = new File("temp/temp.txt");
 		if (!new File("temp").exists())
 		{	
 			System.out.println("Temp directory doesnt exist, creating...");
@@ -291,6 +295,15 @@ public class RegressionGUI {
 		{
 			try
 			{
+				tempDetailsFile.delete();
+				try
+				{	
+					tempDetailsFile.createNewFile();
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
 				List<Object> details = new ArrayList<Object>();
 				details.add(targetPath);
 				details.add(workspacePath);
@@ -320,7 +333,7 @@ public class RegressionGUI {
 		 *  4 - reportPath
 		 */
 		List <Object> output = new ArrayList<Object>();
-		File tempDetailsFile = new File("temp/tmp.txt");
+		File tempDetailsFile = new File("temp/temp.txt");
 		if (tempDetailsFile.exists())
 		{
 			try
@@ -342,12 +355,13 @@ public class RegressionGUI {
 		List<Object> fromTempDetailsFile = fetchTempRegressionSettingDetails();
 		
 		frame = new JFrame();
+		frame.getContentPane().setBackground(Color.DARK_GRAY);
 		frame.setBounds(100, 100, 599, 596);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel title = new JLabel("AutoTUT Regression");
-		title.setForeground(Color.BLUE);
+		title.setForeground(new Color(204, 255, 255));
 		title.setFont(new Font("Lucida Grande", Font.BOLD, 25));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setBounds(6, 6, 587, 53);
@@ -358,45 +372,77 @@ public class RegressionGUI {
 		frame.getContentPane().add(tabbedPane_1);
 		
 		Panel regressionSetting = new Panel();
+		regressionSetting.setBackground(Color.DARK_GRAY);
 		tabbedPane_1.addTab("Regression Settings", null, regressionSetting, null);
 		regressionSetting.setLayout(null);
 		
 		JLabel targetLabel = new JLabel("Target Path");
+		targetLabel.setForeground(Color.WHITE);
 		targetLabel.setHorizontalAlignment(SwingConstants.TRAILING);
 		targetLabel.setBounds(21, 18, 87, 16);
 		regressionSetting.add(targetLabel);
 		
+		JButton btnExit = new JButton("EXIT");
+        btnExit.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		exitRegressionGUI();
+        	}
+        });
+        btnExit.setForeground(Color.RED);
+        btnExit.setBounds(305, 423, 117, 29);
+        regressionSetting.add(btnExit);
+        
+        JButton btnExit_1 = new JButton("EXIT");
+		btnExit_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				exitRegressionGUI();
+			}
+		});
+		btnExit_1.setForeground(Color.RED);
+		btnExit_1.setBounds(305, 423, 117, 29);
+		
 		targetPathField = new JTextField();
+		targetPathField.setForeground(Color.WHITE);
+		targetPathField.setBackground(Color.BLACK);
 		targetPathField.setColumns(10);
 		targetPathField.setBounds(120, 13, 130, 26);
 		regressionSetting.add(targetPathField);
 		
 		workspaceField = new JTextField();
+		workspaceField.setForeground(Color.WHITE);
+		workspaceField.setBackground(Color.BLACK);
 		workspaceField.setColumns(10);
 		workspaceField.setBounds(412, 13, 130, 26);
 		regressionSetting.add(workspaceField);
 		
 		timeoutField = new JTextField();
+		timeoutField.setForeground(Color.WHITE);
+		timeoutField.setBackground(Color.BLACK);
 		timeoutField.setColumns(10);
 		timeoutField.setBounds(120, 76, 130, 26);
 		regressionSetting.add(timeoutField);
 		
 		reportPathField = new JTextField();
+		reportPathField.setForeground(Color.WHITE);
+		reportPathField.setBackground(Color.BLACK);
 		reportPathField.setColumns(10);
 		reportPathField.setBounds(120, 125, 130, 26);
 		regressionSetting.add(reportPathField);
 		
 		timeoutLbl = new JLabel("Timeout in sec");
+		timeoutLbl.setForeground(Color.WHITE);
 		timeoutLbl.setHorizontalAlignment(SwingConstants.TRAILING);
 		timeoutLbl.setBounds(6, 81, 102, 16);
 		regressionSetting.add(timeoutLbl);
 		
 		workLbl = new JLabel("Workspace Path");
+		workLbl.setForeground(Color.WHITE);
 		workLbl.setHorizontalAlignment(SwingConstants.TRAILING);
 		workLbl.setBounds(275, 18, 125, 16);
 		regressionSetting.add(workLbl);
 		
 		lblReportpath = new JLabel("Report Path");
+		lblReportpath.setForeground(Color.WHITE);
 		lblReportpath.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblReportpath.setBounds(21, 130, 87, 16);
 		regressionSetting.add(lblReportpath);
@@ -416,6 +462,8 @@ public class RegressionGUI {
         regressionSetting.add(scrollPane);
         
         JList allowedProductList = new JList();
+        allowedProductList.setForeground(Color.WHITE);
+        allowedProductList.setBackground(Color.BLACK);
         allowedProductList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         scrollPane.setViewportView(allowedProductList);
         
@@ -424,6 +472,8 @@ public class RegressionGUI {
         regressionSetting.add(scrollPane_2);
         
         JList selectedAllowedList = new JList();
+        selectedAllowedList.setForeground(Color.WHITE);
+        selectedAllowedList.setBackground(Color.BLACK);
         selectedAllowedList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         scrollPane_2.setViewportView(selectedAllowedList);
         
@@ -434,7 +484,8 @@ public class RegressionGUI {
         		String selectedAllowedElement = (String) allowedProductList.getSelectedValue();
         		// Now we transact between APL and SPL
         		APL.remove(selectedAllowedElement);
-        		SPL.add(selectedAllowedElement);
+        		if (!SPL.contains(selectedAllowedElement))
+        			SPL.add(selectedAllowedElement);
         		// Now add to the JList
         		selectedAllowedList.setListData(SPL.toArray());
         		allowedProductList.setListData(APL.toArray());
@@ -450,7 +501,8 @@ public class RegressionGUI {
         		String selectedSelectedElement = (String) selectedAllowedList.getSelectedValue();
         		// Now we transact between APL and SPL
         		SPL.remove(selectedSelectedElement);
-        		APL.add(selectedSelectedElement);
+        		if(!APL.contains(selectedSelectedElement))
+        			APL.add(selectedSelectedElement);
         		// Now add to the JList
         		selectedAllowedList.setListData(SPL.toArray());
         		allowedProductList.setListData(APL.toArray());
@@ -482,7 +534,7 @@ public class RegressionGUI {
 		JButton reportBrowse = new JButton("Browse");
 		reportBrowse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reportPath = chooseFile("Report File Path", new File(""), "");
+				reportPath = chooseFolder("Report File Path", new File(""));
 				reportPathField.setText(reportPath);
 			}
 		});
@@ -520,6 +572,8 @@ public class RegressionGUI {
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean startFlag = true;
+				btnExit.setEnabled(false);
+				btnExit_1.setEnabled(false);
 				Regression.processFlag = 1;
 				if (workspaceField.getText().isEmpty())
 				{
@@ -565,7 +619,16 @@ public class RegressionGUI {
 							public void run()
 							{
 								recordTempRegressionSettingsDetails(targetPath, workspacePath, timeoutMilliseconds, SPL, reportPath);
-								Regression.runRegression(targetPath, workspacePath, SPL, timeoutMilliseconds, reportPath);
+								SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+								Date date = new Date();
+								reportPathFull = reportPath+File.separator+"report"+formatter.format(date)+".txt";
+								Regression.start_time = System.nanoTime();
+								Regression.runRegression(targetPath, workspacePath, SPL, timeoutMilliseconds, reportPathFull);
+								if(!Regression.stopFlag)
+								{
+									RegressionGUI.detailedLogText.append("Regression Completed, total time taken = "+Regression.getTime((System.nanoTime() - Regression.start_time)/1000000000));
+									System.out.println("Regression Completed, total time taken = "+Regression.getTime((System.nanoTime() - Regression.start_time)/1000000000));
+								}
 							}
 						}.start();
 					}
@@ -579,14 +642,16 @@ public class RegressionGUI {
 		JScrollPane console = new JScrollPane();
 		console.setBounds(21, 287, 523, 113);
 		regressionSetting.add(console);
+		consoleText.setForeground(Color.WHITE);
+		consoleText.setBackground(Color.BLACK);
 		
 		console.setViewportView(consoleText);
+		progressBar.setBackground(Color.WHITE);
+		progressBar.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 		
-		progressBar.setBounds(6, 229, 554, 30);
-        progressBar.setBorderPainted(true);
+		progressBar.setBounds(6, 245, 554, 30);
         progressBar.setStringPainted(true);
-        progressBar.setBackground(Color.WHITE);
-        progressBar.setForeground(Color.BLACK);
+        progressBar.setForeground(Color.WHITE);
         progressBar.setValue(0);
         progressBar.setVisible(true);
         regressionSetting.add(progressBar);
@@ -595,6 +660,8 @@ public class RegressionGUI {
         btnTerminate.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		terminateRegression();
+        		btnExit.setEnabled(true);
+        		btnExit_1.setEnabled(true);
         		start.setEnabled(true);
         	}
         });
@@ -602,36 +669,35 @@ public class RegressionGUI {
         btnTerminate.setBounds(176, 423, 117, 29);
         regressionSetting.add(btnTerminate);
         
-        JButton btnExit = new JButton("EXIT");
-        btnExit.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		exitRegressionGUI();
-        	}
-        });
-        btnExit.setForeground(Color.RED);
-        btnExit.setBounds(305, 423, 117, 29);
-        regressionSetting.add(btnExit);
-        
         JLabel lblNewLabel_1 = new JLabel("Available Product");
+        lblNewLabel_1.setForeground(Color.WHITE);
         lblNewLabel_1.setHorizontalAlignment(SwingConstants.TRAILING);
         lblNewLabel_1.setBounds(346, 81, 158, 16);
         regressionSetting.add(lblNewLabel_1);
         
         JLabel lblNewLabel_2 = new JLabel("Available");
+        lblNewLabel_2.setForeground(Color.WHITE);
         lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel_2.setBounds(346, 186, 76, 16);
         regressionSetting.add(lblNewLabel_2);
         
         JLabel lblSelected = new JLabel("Selected");
+        lblSelected.setForeground(Color.WHITE);
         lblSelected.setHorizontalAlignment(SwingConstants.CENTER);
         lblSelected.setBounds(469, 186, 76, 16);
         regressionSetting.add(lblSelected);
+        timeRemaining.setForeground(Color.WHITE);
         timeRemaining.setHorizontalAlignment(SwingConstants.CENTER);
         
         timeRemaining.setBounds(6, 259, 554, 16);
         regressionSetting.add(timeRemaining);
         
+        JPanel panel = new JPanel();
+        panel.setBounds(6, 245, 554, 30);
+        regressionSetting.add(panel);
+        
 		Panel regressionLog = new Panel();
+		regressionLog.setBackground(Color.DARK_GRAY);
 		tabbedPane_1.addTab("Regression Log", null, regressionLog, null);
 		regressionLog.setLayout(null);
 		
@@ -639,12 +705,18 @@ public class RegressionGUI {
 		scrollPane_1.setBounds(6, 35, 554, 346);
 		regressionLog.add(scrollPane_1);
 		
+		regressionLog.add(btnExit_1);
+		detailedLogText.setForeground(Color.WHITE);
+		detailedLogText.setBackground(Color.BLACK);
+		
 		scrollPane_1.setViewportView(detailedLogText);
 		
 		JButton terminate = new JButton("TERMINATE");
 		terminate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				terminateRegression();
+				btnExit.setEnabled(true);
+				btnExit_1.setEnabled(true);
         		start.setEnabled(true);
 			}
 		});
@@ -652,17 +724,9 @@ public class RegressionGUI {
 		terminate.setBounds(176, 423, 117, 29);
 		regressionLog.add(terminate);
 		
-		JButton btnExit_1 = new JButton("EXIT");
-		btnExit_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				exitRegressionGUI();
-			}
-		});
-		btnExit_1.setForeground(Color.RED);
-		btnExit_1.setBounds(305, 423, 117, 29);
-		regressionLog.add(btnExit_1);
 		
 		JLabel lblNewLabel = new JLabel("Detailed Log");
+		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setBounds(18, 7, 199, 16); 
 		regressionLog.add(lblNewLabel);
 		
@@ -674,9 +738,14 @@ public class RegressionGUI {
 		progressBar1.setValue(0);
 		progressBar1.setVisible(true);
 		regressionLog.add(progressBar1);
+		timeRemaining1.setForeground(Color.WHITE);
 		
 		timeRemaining1.setHorizontalAlignment(SwingConstants.TRAILING);
 		timeRemaining1.setBounds(103, 7, 457, 16);
 		regressionLog.add(timeRemaining1);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(6, 393, 554, 30);
+		regressionLog.add(panel_1);
 	}
 }

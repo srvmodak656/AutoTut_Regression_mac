@@ -10,9 +10,15 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.*;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+import jdk.javadoc.doclet.Reporter;
 
 /*
  * This is the java module to run regression and is a multithreaded module.
@@ -29,10 +35,11 @@ import java.util.Scanner;
  * 
  */
 public class Regression {
-	private static long start_time; 
+	public static long start_time; 
 	private static boolean exit;
 	public static boolean stopFlag = false;
 	public static int processFlag = 0; // 0 for CUI and 1 for GUI
+	public static String reportPathFull = "";
 	
 	private static String handleSpace(String filePath)
 	
@@ -77,7 +84,7 @@ public class Regression {
 
 	            BufferedReader stdError = new BufferedReader(new 
 	                 InputStreamReader(p.getErrorStream()));
-
+	            		
 	            while ((s = stdError.readLine()) != null) {
 	                //System.out.println(s);
 	                
@@ -86,28 +93,32 @@ public class Regression {
 	                	tutWrittenPath = s.split("TUT file written in ")[1];
 	                }
 	                else if (!s.contains("Done") && !s.startsWith("TUT file written in "))
-	                	errorString += "\n [ERROR]"+" {"+workSpaceDetails+"} "+s;
-	                File reportFile = new File(reportPath);
-	        		
-	                try { 
-	                	if(!reportFile.exists())
-	                		reportFile.createNewFile();
-	                    BufferedWriter out = new BufferedWriter(new FileWriter(reportFile, true)); 
-	                    if(errorString!=null || !errorString.isEmpty())
-	                    	out.write(errorString+"\n"); 
-	                    out.close(); 
-	                } 
-	                catch (IOException e) { 
-	                    System.out.println("exception occoured" + e); 
-	                    if (processFlag == 1) 
-	                    	RegressionGUI.detailedLogText.append("exception occoured" + e + "\n"); 
-	                } 
-	                catch(NullPointerException e)
-	                {
-	                	e.getSuppressed();
-	                }
+	                	errorString += "\n [ERROR]"+" {"+workSpaceDetails+" "+s;
+	                
 	            }
+	            // Record the report 
+	            File reportFile = new File(reportPath);
+        		
+                try { 
+                	if(!reportFile.exists())
+                		reportFile.createNewFile();
+                    BufferedWriter out = new BufferedWriter(new FileWriter(reportFile, true)); 
+                    if(errorString!=null || !errorString.isEmpty())
+                    	out.write(errorString+"\n"); 
+                    out.close(); 
+                } 
+                catch (IOException e) { 
+                    System.out.println("exception occoured" + e); 
+                    if (processFlag == 1) 
+                    	RegressionGUI.detailedLogText.append("exception occoured" + e + "\n"); 
+                } 
+                catch(NullPointerException e)
+                {
+                	e.getSuppressed();
+                }
+                
 	            File file = new File(tutWrittenPath);
+	            
 	            file.delete(); // Delete the tut file since not needed.
 	          //  System.out.println("File at "+tutWrittenPath+" is deleted successfully");
 	            p.destroy();
@@ -183,12 +194,12 @@ public class Regression {
 			if(stopFlag)
 			{
 				System.out.println("Regression Terminated by user");
-				System.out.println("Regression stopped, total time taken = "+getTime((System.nanoTime() - start_time)/1000)+ " seconds");
+				System.out.println("Regression stopped, total time taken = "+getTime((System.nanoTime() - start_time)/1000000000)+ "");
 				if (processFlag == 1) 
 				{
 					RegressionGUI.consoleText.append("Regression Terminated by user");
 					RegressionGUI.detailedLogText.append("Regression Terminated by user\n");
-					RegressionGUI.detailedLogText.append("Regression stopped, total time taken = "+getTime((System.nanoTime() - start_time)/1000)+ " seconds\n");
+					RegressionGUI.detailedLogText.append("Regression stopped, total time taken = "+getTime((System.nanoTime() - start_time)/1000000000)+ " \n");
 					RegressionGUI.progressBar.setValue(0);
 					RegressionGUI.progressBar1.setValue(0);
 					RegressionGUI.timeRemaining.setText("");
@@ -207,11 +218,14 @@ public class Regression {
 			System.out.println("Remaining "+(fileList.size()-count));
 			if (processFlag == 1) 
 			{
-				RegressionGUI.detailedLogText.append("Remaining "+(fileList.size()-count)+"\n");
-				RegressionGUI.progressBar.setValue((int)((long)(count/fileList.size())*100));
-				RegressionGUI.progressBar1.setValue((count/fileList.size())*100);
+				int progress = (int)(((double)count/(double)fileList.size())*100);
+				
+				RegressionGUI.progressBar.setValue(progress);
+				RegressionGUI.progressBar1.setValue(progress);
 				RegressionGUI.timeRemaining.setText("Remaining time approx : "+getTime(timeRemaining));
 				RegressionGUI.timeRemaining1.setText("Remaining time approx : "+getTime(timeRemaining));
+				RegressionGUI.detailedLogText.append("Remaining time approx : "+getTime(timeRemaining)+"\n");
+				RegressionGUI.detailedLogText.append("Remaining "+(fileList.size()-count)+"\n");
 			}
 			
 			System.out.println("Remaining time approx : "+getTime(timeRemaining));
@@ -341,7 +355,7 @@ public class Regression {
 			{
 				System.out.println("Report generation path : ");
 				reportPath = scan.next();
-				if (!new File(reportPath).isDirectory())
+				if (new File(reportPath).isDirectory())
 				{
 					System.out.println("Starting regression");
 					if (processFlag == 1) 
@@ -349,17 +363,26 @@ public class Regression {
 						RegressionGUI.consoleText.append("Starting regression\n");
 						RegressionGUI.detailedLogText.append("Starting regression\n");
 					}
-					long start_time = System.nanoTime();
+					start_time = System.nanoTime();
 					RegressionGUI.recordTempRegressionSettingsDetails(targetPath, workspacePath, timeoutMilliseconds, allowedProduct, reportPath);
-					runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPath);
-					System.out.println("Regression stopped, total time taken = "+getTime((System.nanoTime() - start_time)/1000)+ " seconds");
-					if (processFlag == 1) 
-						RegressionGUI.detailedLogText.append("Regression stopped, total time taken = "+getTime((System.nanoTime() - start_time)/1000)+ " seconds");
+					
+					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+					Date date = new Date();
+					reportPathFull = reportPath+File.separator+"report"+formatter.format(date)+".txt";
+					runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPathFull);
+					
+					if (!stopFlag)
+					{
+						System.out.println("Regression Completed, total time taken = "+getTime((System.nanoTime() - start_time)/1000000000));
+						if (processFlag == 1) 
+							RegressionGUI.detailedLogText.append("Regression Completed, total time taken = "+getTime((System.nanoTime() - start_time)/1000000000));
+					}
+					
 					break;
 				}
 				else
 				{
-					System.out.println("Report generation path is a directory try again");
+					System.out.println("Report generation path is not a directory try again");
 				}
 			}
 		}
@@ -370,21 +393,40 @@ public class Regression {
 			timeoutMilliseconds = Integer.parseInt(tempDetails.get(2).toString());
 			reportPath = tempDetails.get(4).toString();
 			allowedProduct = (List<String>) tempDetails.get(3);
-			if (!new File(reportPath).isDirectory())
+			while(true)
 			{
-				System.out.println("Starting regression");
-				if (processFlag == 1) 
+				if (new File(reportPath).isDirectory())
 				{
-					RegressionGUI.consoleText.append("Starting regression\n");
-					RegressionGUI.detailedLogText.append("Starting regression\n");
+					System.out.println("Starting regression");
+					if (processFlag == 1) 
+					{
+						RegressionGUI.consoleText.append("Starting regression\n");
+						RegressionGUI.detailedLogText.append("Starting regression\n");
+					}
+					start_time = System.nanoTime();
+					RegressionGUI.recordTempRegressionSettingsDetails(targetPath, workspacePath, timeoutMilliseconds, allowedProduct, reportPath);
+					
+					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+					Date date = new Date();
+					reportPathFull = reportPath+File.separator+"report"+formatter.format(date)+".txt";
+					runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPathFull);
+					
+					if (!stopFlag)
+					{
+						System.out.println("Regression Completed, total time taken = "+getTime((System.nanoTime() - start_time)/1000000000));
+						if (processFlag == 1) 
+							RegressionGUI.detailedLogText.append("Regression Completed, total time taken = "+getTime((System.nanoTime() - start_time)/1000000000));
+					}
+					break;
 				}
-				long start_time = System.nanoTime();
-				RegressionGUI.recordTempRegressionSettingsDetails(targetPath, workspacePath, timeoutMilliseconds, allowedProduct, reportPath);
-				runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPath);
-				System.out.println("Regression stopped, total time taken = "+getTime((System.nanoTime() - start_time)/1000)+ " seconds");
-				if (processFlag == 1) 
-					RegressionGUI.detailedLogText.append("Regression stopped, total time taken = "+getTime((System.nanoTime() - start_time)/1000)+ " seconds");
+				else
+				{
+					System.out.println("Report generation path is not a directory try again");
+					System.out.println("Report generation path : ");
+					reportPath = scan.next();
+				}
 			}
+			
 		}
 		
 	}
