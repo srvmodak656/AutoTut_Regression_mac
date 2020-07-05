@@ -183,10 +183,12 @@ public class Regression {
 			if(stopFlag)
 			{
 				System.out.println("Regression Terminated by user");
+				System.out.println("Regression stopped, total time taken = "+getTime((System.nanoTime() - start_time)/1000)+ " seconds");
 				if (processFlag == 1) 
 				{
 					RegressionGUI.consoleText.append("Regression Terminated by user");
-					RegressionGUI.detailedLogText.append("Regression Terminated by user");
+					RegressionGUI.detailedLogText.append("Regression Terminated by user\n");
+					RegressionGUI.detailedLogText.append("Regression stopped, total time taken = "+getTime((System.nanoTime() - start_time)/1000)+ " seconds\n");
 					RegressionGUI.progressBar.setValue(0);
 					RegressionGUI.progressBar1.setValue(0);
 					RegressionGUI.timeRemaining.setText("");
@@ -240,11 +242,28 @@ public class Regression {
 				if(!timer.isAlive())	// if timer is over
 				{
 					ThreadStop.StopThread(process);
+					
+					try {
+						Process p = Runtime.getRuntime().exec("pkill -f python");
+					}
+					catch(Exception e)
+					{
+						e.printStackTrace();
+					}
+					
 					break;
 				}
 				if(!process.isAlive())
 				{
 					ThreadStop.StopThread(timer);
+					
+					try {
+						Process p = Runtime.getRuntime().exec("pkill -f python");
+					}
+					catch(Exception e)
+					{
+						e.printStackTrace();
+					}
 					
 					break;
 					
@@ -266,31 +285,91 @@ public class Regression {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Target path  : ");
-		String targetPath = scan.next();
-		System.out.println("Workspace path  : ");
-		String workspacePath = scan.next();
-		System.out.println("Product (like AA, FL, EB). Enter it separated by commas : ");
-		String product = scan.next();
-		String [] temp = product.split(",");
+		int ch = 0;
+		String targetPath, workspacePath, reportPath, product;
 		List<String>allowedProduct = new ArrayList<String>();
-		try {
-			for(int i = 0; i<temp.length; i++)
-				allowedProduct.add(temp[i]);
-				
-			for(int i = 0; i<allowedProduct.size(); i++)
-				allowedProduct.set(i, allowedProduct.get(i).trim());
-		}
-		catch(Exception e)
+		int timeoutMilliseconds;
+		
+		File tempDetailsFile = new File("temp/temp.txt");
+		List<Object> tempDetails = new ArrayList<>();
+		
+		if (tempDetailsFile.exists())
 		{
-			e.getSuppressed();
+			tempDetails = RegressionGUI.fetchTempRegressionSettingDetails();
+			if (!tempDetails.contains(null))
+			{
+				System.out.println("Continue with temp record?");
+				System.out.println("Target Path : "+tempDetails.get(0));
+				System.out.println("Workspace Path : "+tempDetails.get(1));
+				System.out.println("Timeout in milliseconds : "+tempDetails.get(2));
+				System.out.println("Product : "+tempDetails.get(3));
+				System.out.println("Report Path : "+tempDetails.get(4));
+				ch = scan.nextInt();
+			}
 		}
-		System.out.println("Timeout in milliseconds : ");
-		int timeoutMilliseconds = scan.nextInt();
-		while(true)
+		else
+			try {
+				tempDetailsFile.createNewFile();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		if (ch == 0)
 		{
-			System.out.println("Report generation path : ");
-			String reportPath = scan.next();
+			System.out.println("Target path  : ");
+			targetPath = scan.next();
+			System.out.println("Workspace path  : ");
+			workspacePath = scan.next();
+			System.out.println("Product (like AA, FL, EB). Enter it separated by commas : ");
+			product = scan.next();
+			String [] temp = product.split(",");
+			try {
+				for(int i = 0; i<temp.length; i++)
+					allowedProduct.add(temp[i]);
+					
+				for(int i = 0; i<allowedProduct.size(); i++)
+					allowedProduct.set(i, allowedProduct.get(i).trim());
+			}
+			catch(Exception e)
+			{
+				e.getSuppressed();
+			}
+			System.out.println("Timeout in milliseconds : ");
+			timeoutMilliseconds = scan.nextInt();
+			while(true)
+			{
+				System.out.println("Report generation path : ");
+				reportPath = scan.next();
+				if (!new File(reportPath).isDirectory())
+				{
+					System.out.println("Starting regression");
+					if (processFlag == 1) 
+					{
+						RegressionGUI.consoleText.append("Starting regression\n");
+						RegressionGUI.detailedLogText.append("Starting regression\n");
+					}
+					long start_time = System.nanoTime();
+					RegressionGUI.recordTempRegressionSettingsDetails(targetPath, workspacePath, timeoutMilliseconds, allowedProduct, reportPath);
+					runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPath);
+					System.out.println("Regression stopped, total time taken = "+getTime((System.nanoTime() - start_time)/1000)+ " seconds");
+					if (processFlag == 1) 
+						RegressionGUI.detailedLogText.append("Regression stopped, total time taken = "+getTime((System.nanoTime() - start_time)/1000)+ " seconds");
+					break;
+				}
+				else
+				{
+					System.out.println("Report generation path is a directory try again");
+				}
+			}
+		}
+		else if (ch == 1)
+		{
+			targetPath = tempDetails.get(0).toString();
+			workspacePath = tempDetails.get(1).toString();
+			timeoutMilliseconds = Integer.parseInt(tempDetails.get(2).toString());
+			reportPath = tempDetails.get(4).toString();
+			allowedProduct = (List<String>) tempDetails.get(3);
 			if (!new File(reportPath).isDirectory())
 			{
 				System.out.println("Starting regression");
@@ -300,17 +379,14 @@ public class Regression {
 					RegressionGUI.detailedLogText.append("Starting regression\n");
 				}
 				long start_time = System.nanoTime();
+				RegressionGUI.recordTempRegressionSettingsDetails(targetPath, workspacePath, timeoutMilliseconds, allowedProduct, reportPath);
 				runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPath);
-				System.out.println("Regression stopped, total time taken = "+(System.nanoTime() - start_time)+ " seconds");
+				System.out.println("Regression stopped, total time taken = "+getTime((System.nanoTime() - start_time)/1000)+ " seconds");
 				if (processFlag == 1) 
-					RegressionGUI.detailedLogText.append("Regression stopped, total time taken = "+(System.nanoTime() - start_time)+ " seconds\n");
-				break;
-			}
-			else
-			{
-				System.out.println("Report generation path is a directory try again");
+					RegressionGUI.detailedLogText.append("Regression stopped, total time taken = "+getTime((System.nanoTime() - start_time)/1000)+ " seconds");
 			}
 		}
+		
 	}
 
 }

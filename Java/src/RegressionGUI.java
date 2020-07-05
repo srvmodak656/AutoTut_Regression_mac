@@ -12,7 +12,11 @@ import javax.swing.JTabbedPane;
 import java.awt.Panel;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -262,7 +266,81 @@ public class RegressionGUI {
 			e1.printStackTrace();
 		}
 	}
+	
+	public static void recordTempRegressionSettingsDetails(String targetPath, String workspacePath, int timeoutMilliseconds, List<String> allowedProducts, String reportPath)
+	{
+		File tempDetailsFile = new File("temp/tmp.txt");
+		if (!new File("temp").exists())
+		{	
+			System.out.println("Temp directory doesnt exist, creating...");
+			consoleText.append("Temp directory doesnt exist, creating...");
+			detailedLogText.append("Temp directory doesnt exist, creating...");
+			new File("temp").mkdir();
+		}
+		if (!tempDetailsFile.exists())
+			try
+			{	
+				tempDetailsFile.createNewFile();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+					
+		if (tempDetailsFile.exists())
+		{
+			try
+			{
+				List<Object> details = new ArrayList<Object>();
+				details.add(targetPath);
+				details.add(workspacePath);
+				details.add(timeoutMilliseconds);
+				details.add(allowedProducts);
+				details.add(reportPath);
+				
+				ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(tempDetailsFile));
+				objOut.writeObject(details);
+				objOut.close();
+				}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+		}
+	}
+	
+	public static List<Object> fetchTempRegressionSettingDetails()
+	{
+		/*
+		 *  0 - targetPath
+		 *  1 - workspacePath
+		 *  2 - timeoutMilliseconds
+		 *  3 - allowedProducts
+		 *  4 - reportPath
+		 */
+		List <Object> output = new ArrayList<Object>();
+		File tempDetailsFile = new File("temp/tmp.txt");
+		if (tempDetailsFile.exists())
+		{
+			try
+			{
+				ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(tempDetailsFile));
+				output = (List<Object>) objIn.readObject();
+				objIn.close();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return output;
+	}
+	
 	private void initialize() {
+		
+		List<Object> fromTempDetailsFile = fetchTempRegressionSettingDetails();
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 599, 596);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -411,10 +489,38 @@ public class RegressionGUI {
 		reportBrowse.setBounds(133, 152, 117, 29);
 		regressionSetting.add(reportBrowse);
 		
+		//SETTING THE TEMP DETAILS
+		
+		if(fromTempDetailsFile.size() > 0 && !fromTempDetailsFile.contains(null))
+		{
+			targetPathField.setText((fromTempDetailsFile.get(0).toString()));
+			workspaceField.setText((fromTempDetailsFile.get(1).toString()));
+			int tempTimeout = Integer.parseInt(fromTempDetailsFile.get(2).toString())/1000;
+			timeoutField.setText(Integer.toString(tempTimeout));
+			workspacePath = workspaceField.getText();
+			allowedProductList.setEnabled(true);
+			int i = 0;
+			
+			for (String fdr : new File(workspacePath).list())
+			{
+				if (fdr.length()<=2)
+					APL.add(fdr);
+			}
+			allowedProductList.setListData(APL.toArray());
+			
+			SPL = (ArrayList<String>) fromTempDetailsFile.get(3);
+			selectedAllowedList.setListData(SPL.toArray());
+			reportPathField.setText((fromTempDetailsFile.get(4).toString()));
+			targetPath = targetPathField.getText();
+			reportPath = reportPathField.getText();
+		}
+		///////
+		
 		JButton start = new JButton("START");
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean startFlag = true;
+				Regression.processFlag = 1;
 				if (workspaceField.getText().isEmpty())
 				{
 					Message.setMessage("Workspace path is a mandatory input and should be chosen", 0);
@@ -458,6 +564,7 @@ public class RegressionGUI {
 						new Thread() {
 							public void run()
 							{
+								recordTempRegressionSettingsDetails(targetPath, workspacePath, timeoutMilliseconds, SPL, reportPath);
 								Regression.runRegression(targetPath, workspacePath, SPL, timeoutMilliseconds, reportPath);
 							}
 						}.start();
