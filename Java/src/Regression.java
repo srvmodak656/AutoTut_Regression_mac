@@ -15,7 +15,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -41,8 +40,6 @@ public class Regression {
 	public static boolean stopFlag = false;
 	public static int processFlag = 0; // 0 for CUI and 1 for GUI
 	public static String reportPathFull = "";
-	public static ArrayList<Long> pidList = new ArrayList<Long>();
-	
 	
 	private static String handleSpace(String filePath)
 	
@@ -74,7 +71,6 @@ public class Regression {
 		}
 		
 	}
-	@SuppressWarnings("null")
 	private static Process runAutoTUT(String targetPath, String workSpaceDetails, String reportPath)
 	{
 		//ArrayList<String> workSpaceDetails= new ArrayList<String>();	////CHANGE FOR ACCESS
@@ -82,7 +78,7 @@ public class Regression {
 		String errorString = null;
 		String tutWrittenPath = "";
 		try {
-			Process p = Runtime.getRuntime().exec("python "+targetPath+File.separator+"writeTut.py "+workSpaceDetails);
+			Process p = Runtime.getRuntime().exec("python3 "+targetPath+File.separator+"writeTut.py "+workSpaceDetails);
 			BufferedReader stdInput = new BufferedReader(new 
 	                 InputStreamReader(p.getInputStream()));
 
@@ -102,17 +98,17 @@ public class Regression {
 	            }
 	            // Record the report 
 	            File reportFile = new File(reportPath);
-        		System.out.println(reportPath);
-                try
-                { 
-                	reportFile.createNewFile();
+        		
+                try { 
+                	if(!reportFile.exists())
+                		reportFile.createNewFile();
                     BufferedWriter out = new BufferedWriter(new FileWriter(reportFile, true)); 
                     if(errorString!=null || !errorString.isEmpty())
                     	out.write(errorString+"\n"); 
                     out.close(); 
                 } 
                 catch (IOException e) { 
-                    System.out.println("exception occoured " + e); 
+                    System.out.println("exception occoured" + e); 
                     if (processFlag == 1) 
                     	RegressionGUI.detailedLogText.append("exception occoured" + e + "\n"); 
                 } 
@@ -250,7 +246,6 @@ public class Regression {
 			process = new Thread() {
 				public void run() {
 					Process p = runAutoTUT(targetPath, filePath, reportPath);
-					pidList.add(p.pid());
 					p.destroy();
 					p.destroyForcibly();
 				}
@@ -263,15 +258,7 @@ public class Regression {
 					ThreadStop.StopThread(process);
 					
 					try {
-						//Process p = Runtime.getRuntime().exec("pkill -f python");
-						for(Iterator<Long> iterator = pidList.iterator(); iterator.hasNext();)
-						{
-							long pid = iterator.next();
-							Process kill = Runtime.getRuntime().exec("taskkill /IM python.exe /F /Fi \"PID eq "+pid+"\"");
-							
-							kill.destroy();
-							kill.destroyForcibly();
-						}
+						Process p = Runtime.getRuntime().exec("pkill -f python");
 					}
 					catch(Exception e)
 					{
@@ -285,14 +272,7 @@ public class Regression {
 					ThreadStop.StopThread(timer);
 					
 					try {
-						for(Iterator<Long> iterator = pidList.iterator(); iterator.hasNext();)
-						{
-							long pid = iterator.next();
-							Process kill = Runtime.getRuntime().exec("taskkill /IM python.exe /F /Fi \"PID eq "+pid+"\"");
-							
-							kill.destroy();
-							kill.destroyForcibly();
-						}
+						Process p = Runtime.getRuntime().exec("pkill -f python");
 					}
 					catch(Exception e)
 					{
@@ -306,10 +286,7 @@ public class Regression {
 			if (count%10 == 0)
 			{
 				try {
-					Process kill = Runtime.getRuntime().exec("taskkill /IM python.exe /F");
-					kill = Runtime.getRuntime().exec("powershell.exe Stop-Process -Name 'python.exe' -Force");
-					kill.destroy();
-					kill.destroyForcibly();
+					Process p = Runtime.getRuntime().exec("pkill -f python");
 				}
 				catch(Exception e)
 				{
@@ -319,8 +296,9 @@ public class Regression {
 		}
 		
 	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	
+	public static void startRegressionCUI() 
+	{
 		Scanner scan = new Scanner(System.in);
 		int ch = 0;
 		String targetPath, workspacePath, reportPath, product;
@@ -389,21 +367,10 @@ public class Regression {
 					start_time = System.nanoTime();
 					RegressionGUI.recordTempRegressionSettingsDetails(targetPath, workspacePath, timeoutMilliseconds, allowedProduct, reportPath);
 					
-					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
+					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 					Date date = new Date();
 					reportPathFull = reportPath+File.separator+"report"+formatter.format(date)+".txt";
 					runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPathFull);
-					
-					try {
-						Process kill = Runtime.getRuntime().exec("taskkill /IM python.exe /F");
-						kill = Runtime.getRuntime().exec("powershell.exe Stop-Process -Name 'python.exe' -Force");
-						kill.destroy();
-						kill.destroyForcibly();
-					}
-					catch(Exception e)
-					{
-						e.printStackTrace();
-					}
 					
 					if (!stopFlag)
 					{
@@ -440,21 +407,10 @@ public class Regression {
 					start_time = System.nanoTime();
 					RegressionGUI.recordTempRegressionSettingsDetails(targetPath, workspacePath, timeoutMilliseconds, allowedProduct, reportPath);
 					
-					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
+					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 					Date date = new Date();
 					reportPathFull = reportPath+File.separator+"report"+formatter.format(date)+".txt";
 					runRegression(targetPath, workspacePath, allowedProduct, timeoutMilliseconds, reportPathFull);
-					
-					try {
-						Process kill = Runtime.getRuntime().exec("taskkill /IM python.exe /F");
-						kill = Runtime.getRuntime().exec("powershell.exe Stop-Process -Name 'python.exe' -Force");
-						kill.destroy();
-						kill.destroyForcibly();
-					}
-					catch(Exception e)
-					{
-						e.printStackTrace();
-					}
 					
 					if (!stopFlag)
 					{
@@ -473,7 +429,11 @@ public class Regression {
 			}
 			
 		}
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 		
+		startRegressionCUI();
 	}
 
 }

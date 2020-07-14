@@ -20,7 +20,6 @@ import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -36,7 +35,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 import javax.swing.JPanel;
 import java.awt.Window.Type;
-import java.awt.SystemColor;
 
 public class RegressionGUI {
 
@@ -56,7 +54,6 @@ public class RegressionGUI {
 	public static String reportPath;
 	public static JProgressBar progressBar=new JProgressBar();
 	public static JProgressBar progressBar1=new JProgressBar();
-	public static JLabel timeRemaining = new JLabel("");
 	public static JLabel timeRemaining1 = new JLabel("");
 	private static int allowedProdCount = 0;
 	private static List<String>APL = new ArrayList<String>(); // To store a copy of available product list
@@ -65,6 +62,7 @@ public class RegressionGUI {
 	public static JTextArea consoleText = new JTextArea();
 	public static boolean yesNoFlag = false;
 	public static String reportPathFull = "";
+	public static JLabel timeRemaining = new JLabel("");
 
 	/**
 	 * Launch the application.
@@ -72,11 +70,16 @@ public class RegressionGUI {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() { 
 			public void run() {
-				try {
-					RegressionGUI window = new RegressionGUI();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+				if(args.length>0 && args[0].equals("1"))
+					Regression.startRegressionCUI();
+				else
+				{
+					try {
+						RegressionGUI window = new RegressionGUI();
+						window.frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		});
@@ -251,28 +254,11 @@ public class RegressionGUI {
 		ThreadStop.StopThread(Regression.timer);
 		Regression.stopFlag = true;
 		try {
-			for(Iterator<Long> iterator = Regression.pidList.iterator(); iterator.hasNext();)
-			{
-				long pid = iterator.next();
-				Process kill = Runtime.getRuntime().exec("taskkill /IM python.exe /F /Fi \"PID eq "+pid+"\"");
-				
-				kill.destroy();
-				kill.destroyForcibly();
-			}
+			Process p = Runtime.getRuntime().exec("pkill -f python");
 		}
 		catch(Exception e1)
 		{
 			e1.printStackTrace();
-		}
-		try {
-			Process kill = Runtime.getRuntime().exec("taskkill /IM python.exe /F");
-			kill = Runtime.getRuntime().exec("powershell.exe Stop-Process -Name 'python.exe' -Force");
-			kill.destroy();
-			kill.destroyForcibly();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
 		}
 		frame.dispose();
 		
@@ -283,28 +269,11 @@ public class RegressionGUI {
 		ThreadStop.StopThread(Regression.timer);
 		Regression.stopFlag = true;
 		try {
-			for(Iterator<Long> iterator = Regression.pidList.iterator(); iterator.hasNext();)
-			{
-				long pid = iterator.next();
-				Process kill = Runtime.getRuntime().exec("taskkill /IM python.exe /F /Fi \"PID eq "+pid+"\"");
-				
-				kill.destroy();
-				kill.destroyForcibly();
-			}
+			Process p = Runtime.getRuntime().exec("pkill -f python");
 		}
 		catch(Exception e1)
 		{
 			e1.printStackTrace();
-		}
-		try {
-			Process kill = Runtime.getRuntime().exec("taskkill /IM python.exe /F");
-			kill = Runtime.getRuntime().exec("powershell.exe Stop-Process -Name 'python.exe' -Force");
-			kill.destroy();
-			kill.destroyForcibly();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
 		}
 	}
 	
@@ -392,14 +361,13 @@ public class RegressionGUI {
 		List<Object> fromTempDetailsFile = fetchTempRegressionSettingDetails();
 		
 		frame = new JFrame();
-		frame.setBackground(Color.WHITE);
-		frame.getContentPane().setBackground(SystemColor.control);
+		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setBounds(100, 100, 599, 596);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel title = new JLabel("AutoTUT Regression");
-		title.setForeground(SystemColor.desktop);
+		title.setForeground(new Color(204, 255, 255));
 		title.setFont(new Font("Lucida Grande", Font.BOLD, 25));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setBounds(6, 6, 587, 53);
@@ -410,12 +378,12 @@ public class RegressionGUI {
 		frame.getContentPane().add(tabbedPane_1);
 		
 		Panel regressionSetting = new Panel();
-		regressionSetting.setBackground(SystemColor.control);
+		regressionSetting.setBackground(new Color(0, 0, 0));
 		tabbedPane_1.addTab("Regression Settings", null, regressionSetting, null);
 		regressionSetting.setLayout(null);
 		
 		JLabel targetLabel = new JLabel("Target Path");
-		targetLabel.setForeground(SystemColor.desktop);
+		targetLabel.setForeground(Color.WHITE);
 		targetLabel.setHorizontalAlignment(SwingConstants.TRAILING);
 		targetLabel.setBounds(21, 18, 87, 16);
 		regressionSetting.add(targetLabel);
@@ -468,19 +436,19 @@ public class RegressionGUI {
 		regressionSetting.add(reportPathField);
 		
 		timeoutLbl = new JLabel("Timeout in sec");
-		timeoutLbl.setForeground(SystemColor.desktop);
+		timeoutLbl.setForeground(Color.WHITE);
 		timeoutLbl.setHorizontalAlignment(SwingConstants.TRAILING);
 		timeoutLbl.setBounds(6, 81, 102, 16);
 		regressionSetting.add(timeoutLbl);
 		
 		workLbl = new JLabel("Workspace Path");
-		workLbl.setForeground(SystemColor.desktop);
+		workLbl.setForeground(Color.WHITE);
 		workLbl.setHorizontalAlignment(SwingConstants.TRAILING);
 		workLbl.setBounds(275, 18, 125, 16);
 		regressionSetting.add(workLbl);
 		
 		lblReportpath = new JLabel("Report Path");
-		lblReportpath.setForeground(SystemColor.desktop);
+		lblReportpath.setForeground(Color.WHITE);
 		lblReportpath.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblReportpath.setBounds(21, 130, 87, 16);
 		regressionSetting.add(lblReportpath);
@@ -515,7 +483,7 @@ public class RegressionGUI {
         selectedAllowedList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         scrollPane_2.setViewportView(selectedAllowedList);
         
-        JButton toBtn = new JButton(">");
+        JButton toBtn = new JButton(">>");
         toBtn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		// Get from the allowed Product list
@@ -532,7 +500,7 @@ public class RegressionGUI {
         toBtn.setBounds(422, 100, 44, 29);
         regressionSetting.add(toBtn);
         
-        JButton fromBtn = new JButton("<");
+        JButton fromBtn = new JButton("<<");
         fromBtn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		// Get from the allowed Product list
@@ -557,17 +525,10 @@ public class RegressionGUI {
 				allowedProductList.setEnabled(true);
 				int i = 0;
 				
-				try
+				for (String fdr : new File(workspacePath).list())
 				{
-					for (String fdr : new File(workspacePath).list())
-					{
-						if (fdr.length()<=2)
-							APL.add(fdr);
-					}
-				}
-				catch(Exception e1)
-				{
-					e1.getSuppressed();
+					if (fdr.length()<=2)
+						APL.add(fdr);
 				}
 				allowedProductList.setListData(APL.toArray());
 				//allowedProduct = (String[])catchList.toArray();
@@ -585,7 +546,7 @@ public class RegressionGUI {
 		});
 		reportBrowse.setBounds(133, 152, 117, 29);
 		regressionSetting.add(reportBrowse);
-		JButton terminate = new JButton("TERMINATE");
+		
 		//SETTING THE TEMP DETAILS
 		
 		if(fromTempDetailsFile.size() > 0 && !fromTempDetailsFile.contains(null))
@@ -598,36 +559,58 @@ public class RegressionGUI {
 			allowedProductList.setEnabled(true);
 			int i = 0;
 			
-			try
+			for (String fdr : new File(workspacePath).list())
 			{
-				for (String fdr : new File(workspacePath).list())
-				{
-					if (fdr.length()<=2)
-						APL.add(fdr);
-				}
-				allowedProductList.setListData(APL.toArray());
-				SPL = (ArrayList<String>) fromTempDetailsFile.get(3);
-				selectedAllowedList.setListData(SPL.toArray());
-				reportPathField.setText((fromTempDetailsFile.get(4).toString()));
-				targetPath = targetPathField.getText();
-				reportPath = reportPathField.getText();
+				if (fdr.length()<=2)
+					APL.add(fdr);
 			}
-			catch(NullPointerException e)
-			{
-				e.getSuppressed();
-				selectedAllowedList.setListData(APL.toArray());
-				workspaceField.setText("");
-			}
+			allowedProductList.setListData(APL.toArray());
 			
+			SPL = (ArrayList<String>) fromTempDetailsFile.get(3);
+			selectedAllowedList.setListData(SPL.toArray());
+			reportPathField.setText((fromTempDetailsFile.get(4).toString()));
+			targetPath = targetPathField.getText();
+			reportPath = reportPathField.getText();
 		}
 		///////
-		JButton btnTerminate = new JButton("TERMINATE");
+		
 		JButton start = new JButton("START");
+		
+		JButton btnTerminate = new JButton("TERMINATE");
+        btnTerminate.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		terminateRegression();
+        		btnExit.setEnabled(true);
+        		btnExit_1.setEnabled(true);
+        		start.setEnabled(true);
+        	}
+        });
+        btnTerminate.setForeground(Color.RED);
+        btnTerminate.setBounds(176, 423, 117, 29);
+        regressionSetting.add(btnTerminate);
+        
+        JButton terminate = new JButton("TERMINATE");
+		terminate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				terminateRegression();
+				btnExit.setEnabled(true);
+				btnExit_1.setEnabled(true);
+        		start.setEnabled(true);
+			}
+		});
+		Panel regressionLog = new Panel();
+		
+		terminate.setForeground(Color.RED);
+		terminate.setBounds(176, 423, 117, 29);
+		regressionLog.add(terminate);
+		
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean startFlag = true;
 				btnExit.setEnabled(false);
 				btnExit_1.setEnabled(false);
+				terminate.setEnabled(true);
+				btnTerminate.setEnabled(true);
 				Regression.processFlag = 1;
 				if (workspaceField.getText().isEmpty())
 				{
@@ -673,31 +656,22 @@ public class RegressionGUI {
 							public void run()
 							{
 								recordTempRegressionSettingsDetails(targetPath, workspacePath, timeoutMilliseconds, SPL, reportPath);
-								SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
+								SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 								Date date = new Date();
 								reportPathFull = reportPath+File.separator+"report"+formatter.format(date)+".txt";
 								Regression.start_time = System.nanoTime();
 								Regression.runRegression(targetPath, workspacePath, SPL, timeoutMilliseconds, reportPathFull);
-								start.setEnabled(true);
-								btnExit.setEnabled(true);
-								btnExit_1.setEnabled(true);
-								terminate.setEnabled(false);
-								btnTerminate.setEnabled(false);
 								if(!Regression.stopFlag)
 								{
 									RegressionGUI.detailedLogText.append("Regression Completed, total time taken = "+Regression.getTime((System.nanoTime() - Regression.start_time)/1000000000));
 									System.out.println("Regression Completed, total time taken = "+Regression.getTime((System.nanoTime() - Regression.start_time)/1000000000));
+									RegressionGUI.consoleText.append("Regression Completed, total time taken = "+Regression.getTime((System.nanoTime() - Regression.start_time)/1000000000));
 								}
-								try {
-									Process kill = Runtime.getRuntime().exec("taskkill /IM python.exe /F");
-									kill = Runtime.getRuntime().exec("powershell.exe Stop-Process -Name 'python.exe' -Force");
-									kill.destroy();
-									kill.destroyForcibly();
-								}
-								catch(Exception e)
-								{
-									e.printStackTrace();
-								}
+								btnExit.setEnabled(true);
+								btnExit_1.setEnabled(true);
+								start.setEnabled(true);
+								btnTerminate.setEnabled(false);
+								terminate.setEnabled(false);
 							}
 						}.start();
 					}
@@ -709,7 +683,7 @@ public class RegressionGUI {
 		regressionSetting.add(start);
 		
 		JScrollPane console = new JScrollPane();
-		console.setBounds(21, 287, 523, 113);
+		console.setBounds(21, 310, 523, 113);
 		regressionSetting.add(console);
 		consoleText.setForeground(Color.WHITE);
 		consoleText.setBackground(Color.DARK_GRAY);
@@ -718,54 +692,42 @@ public class RegressionGUI {
 		progressBar.setBackground(Color.WHITE);
 		progressBar.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 		
-		progressBar.setBounds(6, 245, 554, 29);
+		progressBar.setBounds(6, 245, 554, 30);
         progressBar.setStringPainted(true);
-        progressBar.setForeground(new Color(0, 204, 0));
+        progressBar.setForeground(Color.WHITE);
         progressBar.setValue(0);
         progressBar.setVisible(true);
         regressionSetting.add(progressBar);
         
-        btnTerminate.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		terminateRegression();
-        		btnExit.setEnabled(true);
-        		btnExit_1.setEnabled(true);
-        		start.setEnabled(true);
-        	}
-        });
-        btnTerminate.setForeground(Color.RED);
-        btnTerminate.setBounds(176, 423, 117, 29);
-        regressionSetting.add(btnTerminate);
         
         JLabel lblNewLabel_1 = new JLabel("Available Product");
-        lblNewLabel_1.setForeground(SystemColor.desktop);
+        lblNewLabel_1.setForeground(Color.WHITE);
         lblNewLabel_1.setHorizontalAlignment(SwingConstants.TRAILING);
         lblNewLabel_1.setBounds(346, 81, 158, 16);
         regressionSetting.add(lblNewLabel_1);
         
         JLabel lblNewLabel_2 = new JLabel("Available");
-        lblNewLabel_2.setForeground(SystemColor.desktop);
+        lblNewLabel_2.setForeground(Color.WHITE);
         lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel_2.setBounds(346, 186, 76, 16);
         regressionSetting.add(lblNewLabel_2);
         
         JLabel lblSelected = new JLabel("Selected");
-        lblSelected.setForeground(SystemColor.desktop);
+        lblSelected.setForeground(Color.WHITE);
         lblSelected.setHorizontalAlignment(SwingConstants.CENTER);
         lblSelected.setBounds(469, 186, 76, 16);
         regressionSetting.add(lblSelected);
-        timeRemaining.setForeground(SystemColor.desktop);
-        timeRemaining.setHorizontalAlignment(SwingConstants.CENTER);
-        
-        timeRemaining.setBounds(6, 259, 554, 16);
-        regressionSetting.add(timeRemaining);
         
         JPanel panel = new JPanel();
         panel.setBounds(6, 245, 554, 30);
         regressionSetting.add(panel);
         
-		Panel regressionLog = new Panel();
-		regressionLog.setBackground(SystemColor.control);
+        timeRemaining.setHorizontalAlignment(SwingConstants.CENTER);
+        timeRemaining.setForeground(Color.WHITE);
+        timeRemaining.setBounds(6, 282, 554, 16);
+        regressionSetting.add(timeRemaining);
+        
+		regressionLog.setBackground(Color.BLACK);
 		tabbedPane_1.addTab("Regression Log", null, regressionLog, null);
 		regressionLog.setLayout(null);
 		
@@ -779,22 +741,9 @@ public class RegressionGUI {
 		
 		scrollPane_1.setViewportView(detailedLogText);
 		
-		terminate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				terminateRegression();
-				btnExit.setEnabled(true);
-				btnExit_1.setEnabled(true);
-        		start.setEnabled(true);
-			}
-		});
-		terminate.setForeground(Color.RED);
-		terminate.setBounds(176, 423, 117, 29);
-		regressionLog.add(terminate);
-		
-		
 		JLabel lblNewLabel = new JLabel("Detailed Log");
 		lblNewLabel.setBackground(Color.BLACK);
-		lblNewLabel.setForeground(SystemColor.desktop);
+		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setBounds(18, 7, 199, 16); 
 		regressionLog.add(lblNewLabel);
 		
